@@ -12,5 +12,5 @@ public interface UserService {
     public User viewUser(BigInteger userId);
     public List<User> viewUser();
 
-    void validateUser(User user);
+    public void validateUser(User user);
 }

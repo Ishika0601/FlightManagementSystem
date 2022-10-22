@@ -2,6 +2,9 @@ package com.cg.service;
 
 import com.cg.bean.User;
 import com.cg.dao.UserDao;
+import com.cg.exception.InvalidUserException;
+import com.cg.exception.UserNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +34,7 @@ public class UserServiceImpl implements  UserService{
         Optional<User> optac=userDao.findById(userId);
         User u=optac.get();
         if(u==null){
-            //Exception
+            throw new UserNotFoundException("No user found with id "+userId);
         }
         	u.setUserId(newAccount.getUserId());
             u.setUserName(newAccount.getUserName());
@@ -51,7 +54,7 @@ public class UserServiceImpl implements  UserService{
     	Optional<User> optac=userDao.findById(userId);
         User u=optac.get();
     	if(u==null){
-            //Exception
+    		throw new UserNotFoundException("No user found with id "+userId);
         }
         userDao.deleteById(userId);
 
@@ -64,7 +67,7 @@ public class UserServiceImpl implements  UserService{
         Optional<User> o=userDao.findById(userId);
         User user=o.get();
         if(user==null){
-            //Exception
+        	throw new UserNotFoundException("No user found with id "+userId);
         }
         return  user;
     }
@@ -84,12 +87,12 @@ public class UserServiceImpl implements  UserService{
         Pattern p1=Pattern.compile("^[A-Za-z0-9]*@[a-zA-Z]+[.][a-zA-Z]{2,3}$");
         Matcher m1=p1.matcher(email);
         if(!m.find() && !m1.find()){
-            //Exception
+            throw new InvalidUserException("Phone number and email are invalid");
         }
          else if(!m1.find() && m.find()){
-            //Exception
+        	 throw new InvalidUserException("Email is invalid");
         } else if (m1.find() && !m.find()) {
-             //Exception
+        	throw new InvalidUserException("Phone number is invalid");
          }
 
 

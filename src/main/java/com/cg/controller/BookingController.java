@@ -41,11 +41,11 @@ public class BookingController
 	}
 	
 	@PutMapping("/bookings/{bookingId}")
-//	public Booking updateBooking(@RequestBody Booking updateBooking,BigInteger id)
-//	{
-//		
-//		return bookingService.modifyBooking(updateBooking);
-//	}
+	public Booking updateBooking(@RequestBody Booking updateBooking)
+	{
+		
+		return bookingService.modifyBooking(updateBooking);
+	}
 	
 	@DeleteMapping("/bookings/{bookingId}")
 	public void deleteBooking(@PathVariable BigInteger bookingId)

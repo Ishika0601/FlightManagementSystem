@@ -5,15 +5,27 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.bean.Airport;
+import com.cg.bean.Flight;
+import com.cg.bean.Schedule;
 import com.cg.bean.ScheduledFlight;
+import com.cg.dao.FlightDao;
+import com.cg.dao.ScheduleDao;
 import com.cg.dao.ScheduledFlightDao;
 
+@Service("scheduledFlightService")
 public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
+	@Autowired
 	ScheduledFlightDao scheduledFlightDao;
+	@Autowired
+	FlightDao flightDao;
+	@Autowired
+	ScheduleDao scheduleDao;
 	
 	@Transactional
 	@Override
@@ -23,18 +35,25 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	
 	@Transactional
 	@Override
-	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight) {
-		BigInteger fno = scheduledFlight.getFlight().getFlightNumber();
-		Optional<ScheduledFlight> optac = scheduledFlightDao.findById(fno);
-		ScheduledFlight b = optac.get();
+	public ScheduledFlight modifyScheduledFlight(Flight flight,Schedule sch, int avalseats)) {
+		BigInteger fno = flight.getFlightNumber();
+		Optional<Flight> optac = flightDao.findById(fno);
+		Flight b = optac.get();
 		if(b == null)
 		{
 			//throw flight not found
 		}
-		b.setFlight(b.getFlight());
-		b.setAvailableSeats(b.getAvailableSeats());
-		b.setSchedule(b.getSchedule());
-		return scheduledFlightDao.save(scheduledFlight);
+		BigInteger sno = sch.getSid();
+		Optional<Schedule> optac1 = scheduleDao.findById(sno);
+		Schedule c = optac1.get();
+		if(c == null)
+		{
+			//throw schedule not found
+		}
+		
+		//b.setAvailableSeats(b.getAvailableSeats());
+		//c.setSchedule(c.getSchedule());
+		return scheduledFlightDao.save(flight);
 	}
 
 	@Transactional

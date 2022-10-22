@@ -1,14 +1,20 @@
 package com.cg.bean;
 
+import java.math.BigInteger;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
 public class ScheduledFlight {
+	
+	@Id
+	BigInteger sfid;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 //	@JoinColumn(name="flightNumber")
@@ -24,11 +30,22 @@ public class ScheduledFlight {
 		
 	}
 
-	public ScheduledFlight(Flight flight, Schedule schedule, int availableSeats) {
+	
+	public ScheduledFlight(BigInteger sfid, Flight flight, Schedule schedule, int availableSeats) {
 		super();
+		this.sfid = sfid;
 		this.flight = flight;
 		this.schedule = schedule;
 		this.availableSeats = availableSeats;
+	}
+
+
+	public BigInteger getSfid() {
+		return sfid;
+	}
+
+	public void setSfid(BigInteger sfid) {
+		this.sfid = sfid;
 	}
 
 	public Flight getFlight() {
@@ -55,12 +72,12 @@ public class ScheduledFlight {
 		this.availableSeats = availableSeats;
 	}
 
+
 	@Override
 	public String toString() {
-		return "ScheduledFlight [flight=" + flight + ", schedule=" + schedule + ", availableSeats=" + availableSeats
-				+ "]";
+		return "ScheduledFlight [sfid=" + sfid + ", flight=" + flight + ", schedule=" + schedule + ", availableSeats="
+				+ availableSeats + "]";
 	}
-	
-	
+
 
 }

@@ -30,10 +30,10 @@ public class ScheduledFlightController {
 	}
 	
 	@PostMapping("/scheduledflights")
-	public void addSchFlights(@RequestBody ScheduledFlight newScheduledFlight)
+	public ScheduledFlight addSchFlights(@RequestBody ScheduledFlight newScheduledFlight)
 	{
 		scheduledFlightService.validateScheduledFlight(newScheduledFlight);
-		scheduledFlightService.scheduleFlight(newScheduledFlight);
+		return scheduledFlightService.scheduleFlight(newScheduledFlight);
 	}
 	
 	@GetMapping("/scheduledflightsByFno/{fno}")
@@ -45,7 +45,7 @@ public class ScheduledFlightController {
 	@PutMapping("/scheduledflights")
 	public ScheduledFlight modifySchFlight(@RequestBody ScheduledFlight newScheduledFlight)
 	{
-		
+		scheduledFlightService.validateScheduledFlight(newScheduledFlight);
 		return scheduledFlightService.modifyScheduledFlight(newScheduledFlight);
 	}
 	

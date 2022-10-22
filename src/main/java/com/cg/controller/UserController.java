@@ -45,6 +45,7 @@ public class UserController {
     	if(!userId.getClass().getSimpleName().equals("BigInteger")) {
     		throw new InputMismatchException("User Id should be a big integer");
     	}
+    	userService.validateUser(newU);
         return userService.updateUser(newU,userId);
     }
     

@@ -6,14 +6,29 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cg.exception.AirportNotFoundException;
+import com.cg.exception.InvalidUserException;
+import com.cg.exception.UserNotFoundException;
 
 @RestControllerAdvice
-public class AirportNotFoundAdvice {
+public class GlobalExceptionAdvice {
 	@ExceptionHandler(AirportNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	String traineeNotFoundHandler(AirportNotFoundException e) {
+	String airportNotFoundHandler(AirportNotFoundException e) {
 		return e.getMessage();
 	}
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	String userNotFoundHandler(UserNotFoundException e) {
+		return e.getMessage();
+	}
+	
+	@ExceptionHandler(InvalidUserException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	String userInvalidHandler(InvalidUserException e) {
+		return e.getMessage();
+	}
+	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	String exceptionHandler(Exception e) {

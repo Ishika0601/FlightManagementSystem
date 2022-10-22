@@ -2,6 +2,8 @@ package com.cg.service;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,7 @@ import com.cg.bean.Airport;
 import com.cg.bean.Flight;
 import com.cg.bean.Schedule;
 import com.cg.bean.ScheduledFlight;
+import com.cg.dao.AirportDao;
 import com.cg.dao.FlightDao;
 import com.cg.dao.ScheduleDao;
 import com.cg.dao.ScheduledFlightDao;
@@ -26,6 +29,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	FlightDao flightDao;
 	@Autowired
 	ScheduleDao scheduleDao;
+	@Autowired
+	AirportDao airportDao;
+	
 	
 	@Transactional
 	@Override
@@ -35,32 +41,35 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	
 	@Transactional
 	@Override
-	public ScheduledFlight modifyScheduledFlight(Flight flight,Schedule sch, int avalseats)) {
-		BigInteger fno = flight.getFlightNumber();
-		Optional<Flight> optac = flightDao.findById(fno);
-		Flight b = optac.get();
+	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight) {
+
+		Optional<ScheduledFlight> optac = scheduledFlightDao.findById(scheduledFlight.getSfid());
+		ScheduledFlight b = optac.get();
 		if(b == null)
 		{
-			//throw flight not found
+			//throw scheduledflight not found
 		}
-		BigInteger sno = sch.getSid();
-		Optional<Schedule> optac1 = scheduleDao.findById(sno);
-		Schedule c = optac1.get();
-		if(c == null)
-		{
-			//throw schedule not found
-		}
+		Schedule c = scheduleDao.findById(b.getSchedule().getSid()).get();
 		
-		//b.setAvailableSeats(b.getAvailableSeats());
-		//c.setSchedule(c.getSchedule());
-		return scheduledFlightDao.save(flight);
+		b.setAvailableSeats(scheduledFlight.getAvailableSeats());
+		c.setSourceAirport(scheduledFlight.getSchedule().getSourceAirport());
+		c.setDestinationAirport(scheduledFlight.getSchedule().getDestinationAirport());
+		c.setArrivalTime(scheduledFlight.getSchedule().getArrivalTime());
+		c.setDepartureTime(scheduledFlight.getSchedule().getDepartureTime());
+		
+		return scheduledFlightDao.save(b);
 	}
 
 	@Transactional
 	@Override
 	public List<ScheduledFlight> viewScheduledFlights(BigInteger fno) {
-		return scheduledFlightDao.findAllById((Iterable<BigInteger>) fno);
 		
+		List<ScheduledFlight> sflist = scheduledFlightDao.findByFlightFlightNumber(fno);
+		if(sflist.size()==0)
+		{
+			//throw exception
+		}
+		return sflist;
 	}
 
 	@Transactional
@@ -71,19 +80,46 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
 	@Transactional
 	@Override
-	public void deleteScheduledFlight(BigInteger fno) {
-		scheduledFlightDao.deleteById(fno);
+	public void deleteScheduledFlight(BigInteger sfid) {
+		Optional<ScheduledFlight> optac = scheduledFlightDao.findById(sfid);
+		ScheduledFlight b = optac.get();
+		if(b == null)
+		{
+			//throw scheduledflight not found
+		}
+		scheduledFlightDao.deleteById(sfid);
 		
 	}
 
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		
+		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())>0 && scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())>0 && scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())>0)
+		{
+			//throw exception
+		}
+		
+		List<Airport> a1 = airportDao.findAll();
+		if((!a1.contains(scft.getSchedule().getDestinationAirport())) || (!a1.contains(scft.getSchedule().getSourceAirport())))
+		{
+			//throw exception
+		}
+		
 	}
 
 	@Override
 	public List<ScheduledFlight> viewScheduledFlights(Airport src, Airport dst, LocalDate date) {
-		return null;
+		List<ScheduledFlight> sf1 = scheduledFlightDao.findAll();
+		List<ScheduledFlight> sf2 = new ArrayList<>();
+		
+		for(ScheduledFlight s : sf1)
+		{
+			if(s.getSchedule().getSourceAirport().equals(src) && s.getSchedule().getDestinationAirport().equals(dst) && date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0)
+			{
+				sf2.add(s);
+			}
+		}
+		return sf2;
 	}
 	
 }

@@ -10,6 +10,9 @@ import com.cg.bean.Airport;
 import com.cg.bean.ScheduledFlight;
 
 public interface ScheduledFlightDao extends JpaRepository<ScheduledFlight, BigInteger>{
+	
+	List<ScheduledFlight> findByFlightFlightNumber(BigInteger fno);
+	
 	List<ScheduledFlight> viewScheduledFlights(Airport src, Airport dst, LocalDate date);
 }
   

@@ -20,7 +20,6 @@ public class Flight {
 	int seatCapacity;
 	
 	public Flight() {
-		// TODO Auto-generated constructor stub
 	}
 	public Flight(BigInteger flightNumber, String carrierName, String flightModel, int seatCapacity) {
 		super();

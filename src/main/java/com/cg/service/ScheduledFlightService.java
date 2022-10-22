@@ -11,7 +11,6 @@ import com.cg.bean.ScheduledFlight;
 
 
 public interface ScheduledFlightService {
-
 	public ScheduledFlight scheduleFlight(ScheduledFlight scft);
 	
 	public List<ScheduledFlight> viewScheduledFlights(BigInteger fno);

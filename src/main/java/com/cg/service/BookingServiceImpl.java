@@ -13,7 +13,6 @@ import com.cg.bean.Passenger;
 import com.cg.bean.User;
 import com.cg.dao.BookingDao;
 
-
 public class BookingServiceImpl implements BookingService
 {
 

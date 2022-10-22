@@ -43,14 +43,6 @@ public class UserController {
     public  void deleteUser(@PathVariable BigInteger userId){
         userInterface.deleteUser(userId);
     }
-    // local to the RestController
- 		 @ExceptionHandler(InputMismatchException.class)
- 		    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
- 		        List<String> details = new ArrayList<>();
- 		        details.add(ex.getLocalizedMessage());
- 		        ErrorResponse error = new ErrorResponse("Server error from controller", details);
- 		        return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
- 		    }
 
  		
     }

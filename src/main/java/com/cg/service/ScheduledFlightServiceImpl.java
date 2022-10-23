@@ -19,6 +19,8 @@ import com.cg.dao.AirportDao;
 import com.cg.dao.FlightDao;
 import com.cg.dao.ScheduleDao;
 import com.cg.dao.ScheduledFlightDao;
+import com.cg.exception.InvalidScheduledFlightException;
+import com.cg.exception.ScheduledFlightNotFoundException;
 
 @Service("scheduledFlightService")
 public class ScheduledFlightServiceImpl implements ScheduledFlightService {
@@ -47,7 +49,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		ScheduledFlight b = optac.get();
 		if(b == null)
 		{
-			//throw scheduledflight not found
+			throw new ScheduledFlightNotFoundException("No scheduled flight found");
 		}
 		Schedule c = scheduleDao.findById(b.getSchedule().getSid()).get();
 		
@@ -67,7 +69,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		List<ScheduledFlight> sflist = scheduledFlightDao.findByFlightFlightNumber(fno);
 		if(sflist.size()==0)
 		{
-			//throw exception
+			throw new ScheduledFlightNotFoundException("No scheduled flight found for flight number "+fno);
 		}
 		return sflist;
 	}
@@ -85,7 +87,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		ScheduledFlight b = optac.get();
 		if(b == null)
 		{
-			//throw scheduledflight not found
+			throw new ScheduledFlightNotFoundException("No scheduled flight found for scheduled flight id "+sfid);
 		}
 		scheduledFlightDao.deleteById(sfid);
 		
@@ -94,15 +96,15 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		
-		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())>0 && scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())>0 && scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())>0)
+		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())>0 || scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())>0 || scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())>0)
 		{
-			//throw exception
+			throw new InvalidScheduledFlightException("Date time entered has already lapsed");
 		}
 		
 		List<Airport> a1 = airportDao.findAll();
 		if((!a1.contains(scft.getSchedule().getDestinationAirport())) || (!a1.contains(scft.getSchedule().getSourceAirport())))
 		{
-			//throw exception
+			throw new InvalidScheduledFlightException("Airport does not exist in the database");
 		}
 		
 	}

@@ -96,9 +96,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		
-		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())>0 || scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())>0 || scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())>0)
+		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 || scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 || scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())<0)
 		{
-			throw new InvalidScheduledFlightException("Date time entered has already lapsed");
+			throw new InvalidScheduledFlightException("Date time entered has already elapsed");
 		}
 		
 		List<Airport> a1 = airportDao.findAll();

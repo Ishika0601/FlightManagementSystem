@@ -18,6 +18,8 @@ import com.cg.bean.Passenger;
 import com.cg.bean.User;
 import com.cg.dao.AirportDao;
 import com.cg.dao.BookingDao;
+import com.cg.exception.BookingNotFoundException;
+import com.cg.exception.InvalidBookingException;
 import com.cg.exception.InvalidScheduledFlightException;
 
 @Service("bookingService")
@@ -49,7 +51,7 @@ public class BookingServiceImpl implements BookingService
 		Booking b = optac.get();
 		if(b == null)
 		{
-			//throw bookingnotfound
+			throw new BookingNotFoundException("No booking found for booking id : "+booking.getBookingId());
 		}
 		b.setBookingDate(booking.getBookingDate());
 		b.setPassengerList(booking.getPassengerList());
@@ -66,7 +68,7 @@ public class BookingServiceImpl implements BookingService
 		Optional<Booking> bookingId = bookingDao.findById(id);
 		if(!bookingId.isPresent())
 		{
-			//throw Exception
+			throw new BookingNotFoundException("No booking found for booking id : "+id);
 		}
 		//Doubt
 		return bookingId.get();
@@ -93,7 +95,7 @@ public class BookingServiceImpl implements BookingService
 		}
 		else
 		{
-			//Exception
+			throw new BookingNotFoundException("No booking found for booking id : "+id);
 		}
 		
 	}
@@ -105,9 +107,9 @@ public class BookingServiceImpl implements BookingService
 		// TODO Auto-generated method stub
 		Integer nop = booking.getNoOfPassengers();
 		int availableSeats = booking.getScheduledFlight().getAvailableSeats();
-		if(nop > availableSeats)
+		if(nop > availableSeats || nop>4)
 		{
-			//Exception
+			throw new InvalidBookingException("Number of passengers are invalid");
 		}
 		
 		if(booking.getScheduledFlight().getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 
@@ -115,14 +117,14 @@ public class BookingServiceImpl implements BookingService
 				|| booking.getScheduledFlight().getSchedule().getArrivalTime().
 				compareTo(booking.getScheduledFlight().getSchedule().getDepartureTime())<0)
 		{
-			throw new InvalidScheduledFlightException("Date time entered has already elapsed");
+			throw new InvalidBookingException("Date and time has already elapsed");
 		}
 		
 		List<Airport> a1 = airportDao.findAll();
 		if((!a1.contains(booking.getScheduledFlight().getSchedule().getDestinationAirport())) || 
 				(!a1.contains(booking.getScheduledFlight().getSchedule().getSourceAirport())))
 		{
-			throw new InvalidScheduledFlightException("Airport does not exist in the database");
+			throw new InvalidBookingException("Airport does not exist in the database");
 
 		}
 		for(Passenger p:booking.getPassengerList())
@@ -142,7 +144,7 @@ public class BookingServiceImpl implements BookingService
 		Matcher m=p.matcher(uin.toString());
 		if(!m.find())
 		{
-			//exception
+			throw new InvalidBookingException("Passenger UIN is invalid");
 		}
 		
 		

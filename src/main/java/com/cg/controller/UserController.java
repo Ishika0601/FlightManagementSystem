@@ -15,24 +15,25 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/showAllUsers")
     public List<User> showAllUser(){
         List<User> list =userService.viewUser();
         return  list;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/addUser")
     public User newUser(@RequestBody User user){
     	userService.validateUser(user);
         return  userService.addUser(user);
     }
     
-    @GetMapping("/usersById/{userId}")
+    @GetMapping("/showById/{userId}")
     public User showById(@PathVariable BigInteger userId){
     	if(!userId.getClass().getSimpleName().equals("BigInteger")) {
     		throw new InputMismatchException("User Id should be a big integer");
@@ -40,8 +41,8 @@ public class UserController {
         return  userService.viewUser(userId);
     }
     
-    @PutMapping("/users/{userId}")
-    public User updateAccount(@RequestBody User newU,@PathVariable BigInteger userId){
+    @PutMapping("/modifyUser/{userId}")
+    public User updateUser(@RequestBody User newU,@PathVariable BigInteger userId){
     	if(!userId.getClass().getSimpleName().equals("BigInteger")) {
     		throw new InputMismatchException("User Id should be a big integer");
     	}
@@ -49,7 +50,7 @@ public class UserController {
         return userService.updateUser(newU,userId);
     }
     
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/deleteUser/{userId}")
     public  void deleteUser(@PathVariable BigInteger userId){
     	if(!userId.getClass().getSimpleName().equals("BigInteger")) {
     		throw new InputMismatchException("User Id should be a big integer");

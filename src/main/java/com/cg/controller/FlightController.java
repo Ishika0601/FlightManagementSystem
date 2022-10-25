@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
@@ -24,25 +25,25 @@ import com.cg.service.FlightService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController 
-
+@RequestMapping("/flight")
 public class FlightController {
 
 	@Autowired
 	FlightService flightService;
 	
-	@GetMapping("/flight")
+	@GetMapping("/showAllFlights")
 	public List<Flight> showAllFlights()
 	{
 		return flightService.viewFlight();
 	}
 	
-	@PostMapping ("/flight")
+	@PostMapping ("/addFlight")
 	public Flight addFlight(@RequestBody Flight newFlight) {
 		flightService.validateFlight(newFlight);
 		return flightService.addFlight(newFlight);
 	}
 	
-	@GetMapping("/flight/{fno}")
+	@GetMapping("/showById/{fno}")
 	public Flight showById(@PathVariable BigInteger fno) 
 	{
 		if(!fno.getClass().getSimpleName().equals("BigInteger")) {
@@ -51,13 +52,14 @@ public class FlightController {
 		return flightService.viewFlight(fno);
 	}
 	
-	@PutMapping("/flight")
+	@PutMapping("/modifyFlight")
 	public Flight modifyFlight(@RequestBody Flight  modifyFlight )
 	{
+		flightService.validateFlight(modifyFlight);
 		return flightService.modifyFlight(modifyFlight);
 	}
 	
-	@DeleteMapping("/flight/{fno}")
+	@DeleteMapping("/deleteFlight/{fno}")
 	public void deleteFlight(@PathVariable BigInteger fno)
 	{
 		if(!fno.getClass().getSimpleName().equals("BigInteger")) {

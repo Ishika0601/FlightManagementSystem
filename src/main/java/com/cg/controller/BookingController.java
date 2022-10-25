@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
@@ -23,26 +24,27 @@ import com.cg.bean.Booking;
 import com.cg.service.BookingService;
 
 @RestController
+@RequestMapping("/booking")
 public class BookingController 
 {
 
 	@Autowired
 	BookingService bookingService;
 	
-	@GetMapping("/bookings")
+	@GetMapping("/showAllBookings")
 	public List<Booking> showAllBookings()
 	{
 		return bookingService.viewBooking();
 	}
 	
-	@PostMapping("/bookings")
+	@PostMapping("/addBooking")
 	public Booking addBooking(@RequestBody Booking newBooking)
 	{
 		bookingService.validateBooking(newBooking);
 		return bookingService.addBooking(newBooking);
 	}
 	
-	@GetMapping("/bookings/{bookingId}")
+	@GetMapping("/showById/{bookingId}")
 	public Booking showById(@PathVariable BigInteger bookingId)
 	{
 		if(!bookingId.getClass().getSimpleName().equals("BigInteger")) {
@@ -51,14 +53,14 @@ public class BookingController
 		return bookingService.viewBooking(bookingId);
 	}
 	
-	@PutMapping("/bookings")
+	@PutMapping("/modifyBooking")
 	public Booking updateBooking(@RequestBody Booking updateBooking)
 	{
 		bookingService.validateBooking(updateBooking);
 		return bookingService.modifyBooking(updateBooking);
 	}
 	
-	@DeleteMapping("/bookings/{bookingId}")
+	@DeleteMapping("/deleteBooking/{bookingId}")
 	public void deleteBooking(@PathVariable BigInteger bookingId)
 	{
 		if(!bookingId.getClass().getSimpleName().equals("BigInteger")) {

@@ -45,12 +45,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight) {
 
-		Optional<ScheduledFlight> optac = scheduledFlightDao.findById(scheduledFlight.getSfid());
-		ScheduledFlight b = optac.get();
-		if(b == null)
+		Optional<ScheduledFlight> optsf = scheduledFlightDao.findById(scheduledFlight.getSfid());	
+		if(optsf.isEmpty())
 		{
 			throw new ScheduledFlightNotFoundException("No scheduled flight found");
 		}
+		ScheduledFlight b = optsf.get();
 		Schedule c = scheduleDao.findById(b.getSchedule().getSid()).get();
 		
 		b.setAvailableSeats(scheduledFlight.getAvailableSeats());
@@ -83,9 +83,8 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Transactional
 	@Override
 	public void deleteScheduledFlight(BigInteger sfid) {
-		Optional<ScheduledFlight> optac = scheduledFlightDao.findById(sfid);
-		ScheduledFlight b = optac.get();
-		if(b == null)
+		Optional<ScheduledFlight> optsf = scheduledFlightDao.findById(sfid);
+		if(optsf.isEmpty())
 		{
 			throw new ScheduledFlightNotFoundException("No scheduled flight found for scheduled flight id "+sfid);
 		}
@@ -120,6 +119,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 			{
 				sf2.add(s);
 			}
+		}
+		if (sf2.size()==0) {
+			throw new ScheduledFlightNotFoundException("No flight found between "+src+" and "+dst+" on "+date);
 		}
 		return sf2;
 	}

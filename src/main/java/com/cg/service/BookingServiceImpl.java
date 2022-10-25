@@ -1,6 +1,5 @@
 package com.cg.service;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,12 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cg.bean.Airport;
 import com.cg.bean.Booking;
 import com.cg.bean.Passenger;
-import com.cg.bean.User;
 import com.cg.dao.AirportDao;
 import com.cg.dao.BookingDao;
 import com.cg.exception.BookingNotFoundException;
 import com.cg.exception.InvalidBookingException;
-import com.cg.exception.InvalidScheduledFlightException;
 
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService
@@ -47,12 +44,12 @@ public class BookingServiceImpl implements BookingService
 	//Modify Booking
 	public Booking modifyBooking(Booking booking) {
 		// TODO Auto-generated method stub
-		Optional<Booking> optac = bookingDao.findById(booking.getBookingId());
-		Booking b = optac.get();
-		if(b == null)
+		Optional<Booking> opbook = bookingDao.findById(booking.getBookingId());
+		if(opbook.isEmpty())
 		{
 			throw new BookingNotFoundException("No booking found for booking id : "+booking.getBookingId());
 		}
+		Booking b = opbook.get();
 		b.setBookingDate(booking.getBookingDate());
 		b.setPassengerList(booking.getPassengerList());
 		b.setTicketCost(booking.getNoOfPassengers());
@@ -65,13 +62,12 @@ public class BookingServiceImpl implements BookingService
 	//View Booking by BookingId
 	public Booking viewBooking(BigInteger id) {
 		// TODO Auto-generated method stub
-		Optional<Booking> bookingId = bookingDao.findById(id);
-		if(!bookingId.isPresent())
+		Optional<Booking> opbook = bookingDao.findById(id);
+		if(opbook.isEmpty())
 		{
 			throw new BookingNotFoundException("No booking found for booking id : "+id);
 		}
-		//Doubt
-		return bookingId.get();
+		return opbook.get();
 		
 	}
 
@@ -88,8 +84,8 @@ public class BookingServiceImpl implements BookingService
 	//delete booking
 	public void deleteBooking(BigInteger id) {
 		// TODO Auto-generated method stub
-		Optional<Booking> bookingId = bookingDao.findById(id);
-		if(bookingId.isPresent())
+		Optional<Booking> opbook = bookingDao.findById(id);
+		if(opbook.isPresent())
 		{
 		bookingDao.deleteById(id);
 		}

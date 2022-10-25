@@ -23,10 +23,10 @@ public class AirportServiceImpl implements AirportService {
 	@Override
 	public Airport viewAirport(String code) {
 		Optional<Airport> a = airportDao.findById(code);
-		Airport airport = a.get();
-		if (airport==null) {
+		if (a.isEmpty()) {
 			throw new AirportNotFoundException("No airport found with code "+code);
 		}
+		Airport airport = a.get();
 		return airport;
 	}
 

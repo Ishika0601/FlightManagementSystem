@@ -63,9 +63,9 @@ public class GlobalExceptionAdvice {
 		return e.getMessage();
 	}
 	
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	String exceptionHandler(Exception e) {
-		return e.getMessage();
-	}
+//	@ExceptionHandler(Exception.class)
+//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//	String exceptionHandler(Exception e) {
+//		return e.getMessage();
+//	}
 }

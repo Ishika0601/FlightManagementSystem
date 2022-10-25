@@ -18,6 +18,7 @@ import com.cg.dao.AirportDao;
 import com.cg.dao.BookingDao;
 import com.cg.exception.BookingNotFoundException;
 import com.cg.exception.InvalidBookingException;
+import com.cg.exception.InvalidScheduledFlightException;
 
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService
@@ -122,6 +123,10 @@ public class BookingServiceImpl implements BookingService
 		{
 			throw new InvalidBookingException("Airport does not exist in the database");
 
+		}
+		if (booking.getScheduledFlight().getSchedule().getDestinationAirport().equals(booking.getScheduledFlight().getSchedule().getSourceAirport())) 
+		{
+			throw new InvalidBookingException("Destination airport should not be same as arrival airport");
 		}
 		for(Passenger p:booking.getPassengerList())
 		{

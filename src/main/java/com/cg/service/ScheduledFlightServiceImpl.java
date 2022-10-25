@@ -105,6 +105,10 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		{
 			throw new InvalidScheduledFlightException("Airport does not exist in the database");
 		}
+		if (scft.getSchedule().getDestinationAirport().equals(scft.getSchedule().getSourceAirport())) 
+		{
+			throw new InvalidScheduledFlightException("Destination airport should not be same as arrival airport");
+		}
 		
 	}
 

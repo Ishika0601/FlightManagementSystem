@@ -78,20 +78,27 @@ public class UserServiceImpl implements  UserService{
     @Override
     public void validateUser(User user) {
         BigInteger phoneNo=user.getUserPhone();
+        String phno = phoneNo.toString();
         Pattern p= Pattern.compile("^[1-9][0-9]{9}$");
-        Matcher m=p.matcher(phoneNo.toString());
+        Matcher m=p.matcher(phno);
         String email=user.getEmail();
-        Pattern p1=Pattern.compile("^[A-Za-z0-9]*@[a-zA-Z]+[.][a-zA-Z]{2,3}$");
+        Pattern p1=Pattern.compile("^[A-Za-z0-9]*@[a-zA-Z]+[.][a-zA-Z]{2,4}$");
         Matcher m1=p1.matcher(email);
-        if(!m.find() && !m1.find()){
-            throw new InvalidUserException("Phone number and email are invalid");
-        }
-         else if(!m1.find() && m.find()){
+         if((!m1.matches()) && (m.matches())){
         	 throw new InvalidUserException("Email is invalid");
-        } else if (m1.find() && !m.find()) {
+        }
+         else if ((!m.matches()) && (m1.matches())) {
         	throw new InvalidUserException("Phone number is invalid");
          }
-
+         else if((!m.matches()) && (!m1.matches())){
+             throw new InvalidUserException("Phone number and email are invalid");
+         }
+//        if(!m.find()){
+//       	 System.out.print("Phone is invalid");
+//       }
+//        if (!m1.find()) {
+//       	System.out.print("Email is invalid");
+//        }
 
     }
 

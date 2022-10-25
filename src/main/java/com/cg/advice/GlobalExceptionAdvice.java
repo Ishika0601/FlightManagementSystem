@@ -51,6 +51,18 @@ public class GlobalExceptionAdvice {
 		return e.getMessage();
 	}
 	
+	@ExceptionHandler(BookingNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	String bookingNotFoundHandler(BookingNotFoundException e) {
+		return e.getMessage();
+	}
+	
+	@ExceptionHandler(InvalidBookingException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	String bookingInvalidHandler(InvalidBookingException e) {
+		return e.getMessage();
+	}
+	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	String exceptionHandler(Exception e) {

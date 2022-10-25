@@ -1,7 +1,6 @@
 package com.cg.service;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.bean.Airport;
-import com.cg.bean.Booking;
 import com.cg.bean.Flight;
-import com.cg.bean.ScheduledFlight;
 import com.cg.dao.FlightDao;
-import com.cg.exception.InvalidScheduledFlightException;
+import com.cg.exception.FlightNotFoundException;
+import com.cg.exception.InvalidFlightException;
 
 @Service("flightService")
 public class FlightServiceImpl implements FlightService {
@@ -37,7 +34,7 @@ public class FlightServiceImpl implements FlightService {
 		Flight f = flt.get();
 		if(f == null)
 		{
-			//throw flightnotfound
+			throw new FlightNotFoundException("No flight found with flight number "+flight.getFlightNumber());
 		}
      	f.setFlightNumber(f.getFlightNumber());
 		f.setCarrierName(f.getCarrierName());
@@ -53,7 +50,7 @@ public class FlightServiceImpl implements FlightService {
 		Flight f = flt.get();
 		if(f == null)
 		{
-			//throw flightnotfound
+			throw new FlightNotFoundException("No flight found with flight number "+fn);
 		}
 		return f;
 		
@@ -73,7 +70,7 @@ public class FlightServiceImpl implements FlightService {
 		Flight f = flt.get();
 		if(f == null)
 		{
-			//throw flightnotfound
+			throw new FlightNotFoundException("No flight found with flight number "+fn);
 		}
 	    flightDao.deleteById(fn);
 		
@@ -84,7 +81,7 @@ public class FlightServiceImpl implements FlightService {
 		
 	if(flight.getFlightNumber()==null || !flight.getFlightNumber().getClass().getSimpleName().equals("BigInteger"))
 	{
-		throw new InvalidScheduledFlightException("Date time entered has already elapsed");
+		throw new InvalidFlightException("Flight number not entered properly");
 	}		
 	
 	}

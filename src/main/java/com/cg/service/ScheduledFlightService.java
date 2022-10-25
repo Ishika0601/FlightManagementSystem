@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.bean.Airport;
-import com.cg.bean.Flight;
-import com.cg.bean.Schedule;
 import com.cg.bean.ScheduledFlight;
 
 

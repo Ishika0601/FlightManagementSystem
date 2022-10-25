@@ -9,12 +9,10 @@ import javax.persistence.Id;
 @Entity
 public class User {
 	
+	@Id
+	private BigInteger userId;
 	@Column(name="type")
 	private String userType;
-	
-	@Id
-	@Column(name="id")
-	private BigInteger userId;
 	@Column(name="name")
 	private String userName;
 	@Column(name="pwd")

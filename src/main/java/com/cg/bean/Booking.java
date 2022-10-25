@@ -32,7 +32,6 @@ public class Booking
 	BigInteger bookingId;
 	
 	@ManyToOne
-	@Column(name="uid")
 	@JoinColumn(referencedColumnName="userId")
 	User userId;
 	
@@ -47,7 +46,6 @@ public class Booking
 	BigDecimal ticketCost;
 	
 	@OneToOne
-	@Column(name="code")
 	ScheduledFlight flight;
 	
 	@Column(name="nop")

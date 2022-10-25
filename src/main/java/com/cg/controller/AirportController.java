@@ -17,12 +17,18 @@ public class AirportController {
 	@Autowired
 	AirportService airportService;
 	
+	/*
+	  http://localhost:9001/airport/showAllAirports
+	 */
 	@GetMapping("/showAllAirports")
 	public List<Airport> showAllAirport() {
 		List<Airport> alist = airportService.viewAirport();
 		return alist;
 	}
 	
+	/*
+	 http://localhost:9001/airport/showById/106 || 108
+	 */
 	@GetMapping("/showById/{code}")
 	public Airport showById(@PathVariable String code) {
 		return airportService.viewAirport(code);

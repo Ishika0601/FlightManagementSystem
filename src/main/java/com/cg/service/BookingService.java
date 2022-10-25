@@ -10,7 +10,7 @@ public interface BookingService
 {
 	public Booking addBooking(Booking booking);
 	public Booking modifyBooking(Booking booking);
-	public List<Booking> viewBooking(BigInteger id);
+	public Booking viewBooking(BigInteger id);
 	public List<Booking> viewBooking();
 	public void deleteBooking(BigInteger id);
 	public void validateBooking(Booking booking);

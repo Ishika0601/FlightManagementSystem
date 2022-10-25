@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.bean.Airport;
@@ -15,6 +16,7 @@ import com.cg.bean.ScheduledFlight;
 import com.cg.dao.FlightDao;
 import com.cg.exception.InvalidScheduledFlightException;
 
+@Service("flightService")
 public class FlightServiceImpl implements FlightService {
 	
 	@Autowired

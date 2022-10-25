@@ -29,21 +29,22 @@ public class BookingController
 	}
 	
 	@PostMapping("/bookings")
-	public void addBooking(@RequestBody Booking newBooking)
+	public Booking addBooking(@RequestBody Booking newBooking)
 	{
-		bookingService.addBooking(newBooking);
+		bookingService.validateBooking(newBooking);
+		return bookingService.addBooking(newBooking);
 	}
 	
 	@GetMapping("/bookings/{bookingId}")
-	public List<Booking> showById(@PathVariable BigInteger bookingId)
+	public Booking showById(@PathVariable BigInteger bookingId)
 	{
 		return bookingService.viewBooking(bookingId);
 	}
 	
-	@PutMapping("/bookings/{bookingId}")
+	@PutMapping("/bookings")
 	public Booking updateBooking(@RequestBody Booking updateBooking)
 	{
-		
+		bookingService.validateBooking(updateBooking);
 		return bookingService.modifyBooking(updateBooking);
 	}
 	

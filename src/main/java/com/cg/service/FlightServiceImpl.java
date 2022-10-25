@@ -1,15 +1,19 @@
 package com.cg.service;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.bean.Airport;
 import com.cg.bean.Booking;
 import com.cg.bean.Flight;
+import com.cg.bean.ScheduledFlight;
 import com.cg.dao.FlightDao;
+import com.cg.exception.InvalidScheduledFlightException;
 
 public class FlightServiceImpl implements FlightService {
 	
@@ -25,9 +29,9 @@ public class FlightServiceImpl implements FlightService {
 	}
 	@Transactional
 	@Override
-	public Flight modifyFlight(Flight flight,BigInteger flightNumber) {
+	public Flight modifyFlight(Flight flight) { 
 		// TODO Auto-generated method stub
-		Optional<Flight> flt = flightDao.findById(flightNumber);
+		Optional<Flight> flt = flightDao.findById(flight.getFlightNumber());
 		Flight f = flt.get();
 		if(f == null)
 		{
@@ -41,9 +45,15 @@ public class FlightServiceImpl implements FlightService {
 	
 	@Transactional
 	@Override
-	public List<Flight> viewFlight(BigInteger fn) {
+	public Flight viewFlight(BigInteger fn) {
 		// TODO Auto-generated method stub
-		return flightDao.findAllById((Iterable<BigInteger>) fn);
+		Optional<Flight> flt = flightDao.findById(fn);
+		Flight f = flt.get();
+		if(f == null)
+		{
+			//throw flightnotfound
+		}
+		return f;
 		
 	}
 	@Transactional
@@ -57,7 +67,26 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public void deleteFlight(BigInteger fn) {
 		// TODO Auto-generated method stub
-	flightDao.deleteById(fn);
+		Optional<Flight> flt = flightDao.findById(fn);
+		Flight f = flt.get();
+		if(f == null)
+		{
+			//throw flightnotfound
+		}
+	    flightDao.deleteById(fn);
 		
 	}
+	
+    @Override
+	public void validateFlight(Flight flight) {
+		
+	if(flight.getFlightNumber()==null || !flight.getFlightNumber().getClass().getSimpleName().equals("BigInteger"))
+	{
+		throw new InvalidScheduledFlightException("Date time entered has already elapsed");
+	}		
+	
+	}
+	
+	
+	
 }

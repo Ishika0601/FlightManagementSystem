@@ -9,9 +9,10 @@ package com.cg.service;
 	public interface FlightService {
 
 		public Flight addFlight(Flight flight);
-		public Flight modifyFlight(Flight flight, BigInteger flightNumber);
-		public List<Flight> viewFlight(BigInteger fn);
+		public Flight modifyFlight(Flight flight); 
+		public Flight viewFlight( BigInteger fn);
 		public List<Flight> viewFlight();   
 		void deleteFlight(BigInteger fn);
+		void validateFlight(Flight flight);
 
 }

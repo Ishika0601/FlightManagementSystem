@@ -32,9 +32,8 @@ public class Booking
 	BigInteger bookingId;
 	
 	@ManyToOne
-	@Column(name="uid")
 	@JoinColumn(referencedColumnName="userId")
-	User userId;
+	User user;
 	
 	@Column(name="date")
 	LocalDateTime bookingDate;
@@ -47,7 +46,6 @@ public class Booking
 	BigDecimal ticketCost;
 	
 	@OneToOne
-	@Column(name="code")
 	ScheduledFlight flight;
 	
 	@Column(name="nop")
@@ -60,10 +58,10 @@ public class Booking
 	}
 	
 	//Parameterized Constructor
-	public Booking(BigInteger bookingId, User userId, LocalDateTime bookingDate, List<Passenger> passengerList,BigDecimal ticketCost, ScheduledFlight flight, Integer noOfPassengers) {
+	public Booking(BigInteger bookingId, User user, LocalDateTime bookingDate, List<Passenger> passengerList,BigDecimal ticketCost, ScheduledFlight flight, Integer noOfPassengers) {
 		super();
 		this.bookingId = bookingId;
-		this.userId = userId;
+		this.user = user;
 		this.bookingDate = bookingDate;
 		this.passengerList = passengerList;
 		this.ticketCost = ticketCost;
@@ -81,12 +79,12 @@ public class Booking
 		this.bookingId = bookingId;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUserId(User user) {
+		this.user = user;
 	}
 
 	public LocalDateTime getBookingDate() {
@@ -133,7 +131,7 @@ public class Booking
 	//toString Method
 	@Override
 	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", userId=" + userId + ", bookingDate=" + bookingDate
+		return "Booking [bookingId=" + bookingId + ", userId=" + user + ", bookingDate=" + bookingDate
 				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", noOfPassengers="
 				+ noOfPassengers + "]";
 	}

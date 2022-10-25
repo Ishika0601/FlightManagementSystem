@@ -21,7 +21,7 @@ public class ScheduledFlight {
 	Flight flight;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="sid")
+//	@JoinColumn(name="sid")
 	Schedule schedule;
 	
 	@Column(name="avalseat")

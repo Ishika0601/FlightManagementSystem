@@ -23,20 +23,18 @@ public class Schedule {
 //	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //	@JoinColumn(name="airportCode")
 	@OneToOne
-	@Column(name="src")
 	Airport sourceAirport;
 	
 //	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //	@JoinColumn(name="airportCode")
 	@OneToOne
-	@Column(name="dst")
 	Airport destinationAirport;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	@Column(name="atime")
 	LocalDateTime arrivalTime;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	@Column(name="dtime")
 	LocalDateTime departureTime;
 	

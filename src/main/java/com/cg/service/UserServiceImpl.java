@@ -31,18 +31,18 @@ public class UserServiceImpl implements  UserService{
     @Transactional
     @Override
     public User updateUser(User newAccount, BigInteger userId) {
-        Optional<User> optac=userDao.findById(userId);
-        User u=optac.get();
-        if(u==null){
+        Optional<User> optus=userDao.findById(userId); 
+        if(optus.isEmpty()){
             throw new UserNotFoundException("No user found with id "+userId);
         }
-        	u.setUserId(newAccount.getUserId());
-            u.setUserName(newAccount.getUserName());
-            u.setUserPassword(newAccount.getUserPassword());
-            u.setEmail(newAccount.getEmail());
-            u.setUserPhone(newAccount.getUserPhone());
-            u.setUserType(newAccount.getUserType());
-            User u1 = userDao.save(u);
+        User u=optus.get();
+        u.setUserId(newAccount.getUserId());
+        u.setUserName(newAccount.getUserName());
+        u.setUserPassword(newAccount.getUserPassword());
+        u.setEmail(newAccount.getEmail());
+        u.setUserPhone(newAccount.getUserPhone());
+        u.setUserType(newAccount.getUserType());
+        User u1 = userDao.save(u);
 
         return  u1;
 
@@ -51,9 +51,8 @@ public class UserServiceImpl implements  UserService{
     @Transactional
     @Override
     public void deleteUser(BigInteger userId) {
-    	Optional<User> optac=userDao.findById(userId);
-        User u=optac.get();
-    	if(u==null){
+    	Optional<User> optus=userDao.findById(userId);
+    	if(optus.isEmpty()){
     		throw new UserNotFoundException("No user found with id "+userId);
         }
         userDao.deleteById(userId);
@@ -63,13 +62,11 @@ public class UserServiceImpl implements  UserService{
     @Transactional
     @Override
     public User viewUser(BigInteger userId) {
-
-        Optional<User> o=userDao.findById(userId);
-        User user=o.get();
-        if(user==null){
+        Optional<User> optus=userDao.findById(userId);
+        if(optus.isEmpty()){
         	throw new UserNotFoundException("No user found with id "+userId);
         }
-        return  user;
+        return optus.get();
     }
     @Transactional
     @Override

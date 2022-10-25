@@ -30,12 +30,12 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public Flight modifyFlight(Flight flight) { 
 		// TODO Auto-generated method stub
-		Optional<Flight> flt = flightDao.findById(flight.getFlightNumber());
-		Flight f = flt.get();
-		if(f == null)
+		Optional<Flight> flt = flightDao.findById(flight.getFlightNumber());		
+		if(flt.isEmpty())
 		{
 			throw new FlightNotFoundException("No flight found with flight number "+flight.getFlightNumber());
 		}
+		Flight f = flt.get();
      	f.setFlightNumber(f.getFlightNumber());
 		f.setCarrierName(f.getCarrierName());
 		f.setFlightModel(f.getFlightModel());
@@ -47,12 +47,11 @@ public class FlightServiceImpl implements FlightService {
 	public Flight viewFlight(BigInteger fn) {
 		// TODO Auto-generated method stub
 		Optional<Flight> flt = flightDao.findById(fn);
-		Flight f = flt.get();
-		if(f == null)
+		if(flt.isEmpty())
 		{
 			throw new FlightNotFoundException("No flight found with flight number "+fn);
 		}
-		return f;
+		return flt.get();
 		
 	}
 	@Transactional
@@ -67,8 +66,7 @@ public class FlightServiceImpl implements FlightService {
 	public void deleteFlight(BigInteger fn) {
 		// TODO Auto-generated method stub
 		Optional<Flight> flt = flightDao.findById(fn);
-		Flight f = flt.get();
-		if(f == null)
+		if(flt.isEmpty())
 		{
 			throw new FlightNotFoundException("No flight found with flight number "+fn);
 		}

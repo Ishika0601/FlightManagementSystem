@@ -26,7 +26,7 @@ public class Booking
 	@Column(name="id")
 	BigInteger bookingId;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@Column(name="uid")
 	@JoinColumn(referencedColumnName="userId")
 	User userId;
@@ -41,7 +41,7 @@ public class Booking
 	@Column(name="cost")
 	BigDecimal ticketCost;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	@Column(name="code")
 	ScheduledFlight flight;
 	

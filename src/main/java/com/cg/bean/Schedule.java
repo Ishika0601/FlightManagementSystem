@@ -20,13 +20,15 @@ public class Schedule {
 	@Id
 	BigInteger sid;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+//	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //	@JoinColumn(name="airportCode")
+	@OneToOne
 	@Column(name="src")
 	Airport sourceAirport;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+//	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //	@JoinColumn(name="airportCode")
+	@OneToOne
 	@Column(name="dst")
 	Airport destinationAirport;
 	

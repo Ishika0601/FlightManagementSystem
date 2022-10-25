@@ -51,5 +51,5 @@ public class FlightController {
 	public void deleteFlight(@PathVariable BigInteger fno)
 	{
 		flightService.deleteFlight(fno);
-	}
+	} 
 }

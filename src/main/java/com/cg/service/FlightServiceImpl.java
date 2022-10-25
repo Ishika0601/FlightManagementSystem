@@ -29,7 +29,7 @@ public class FlightServiceImpl implements FlightService {
 	}
 	@Transactional
 	@Override
-	public Flight modifyFlight(Flight flight) {
+	public Flight modifyFlight(Flight flight) { 
 		// TODO Auto-generated method stub
 		Optional<Flight> flt = flightDao.findById(flight.getFlightNumber());
 		Flight f = flt.get();

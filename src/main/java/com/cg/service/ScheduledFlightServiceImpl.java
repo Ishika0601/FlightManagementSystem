@@ -61,7 +61,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		
 		return scheduledFlightDao.save(b);
 	}
-
+ 
 	@Transactional
 	@Override
 	public List<ScheduledFlight> viewScheduledFlights(BigInteger fno) {

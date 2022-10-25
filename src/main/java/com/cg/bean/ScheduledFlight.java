@@ -16,11 +16,12 @@ public class ScheduledFlight {
 	@Id
 	BigInteger sfid;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 //	@JoinColumn(name="flightNumber")
 	Flight flight;
 	
 	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="sid")
 	Schedule schedule;
 	
 	@Column(name="avalseat")

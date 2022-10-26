@@ -21,6 +21,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Booking 
 {
@@ -31,8 +36,10 @@ public class Booking
 	@Column(name="id")
 	BigInteger bookingId;
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName="userId")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "uid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    //@JsonIgnore
 	User user;
 	
 	@Column(name="date")
@@ -59,7 +66,6 @@ public class Booking
 	
 	//Parameterized Constructor
 	public Booking(BigInteger bookingId, User user, LocalDateTime bookingDate, List<Passenger> passengerList,BigDecimal ticketCost, ScheduledFlight flight, Integer noOfPassengers) {
-		super();
 		this.bookingId = bookingId;
 		this.user = user;
 		this.bookingDate = bookingDate;

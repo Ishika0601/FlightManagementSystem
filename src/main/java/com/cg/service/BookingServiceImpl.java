@@ -34,7 +34,7 @@ public class BookingServiceImpl implements BookingService
 	//add Booking
 	public Booking addBooking(Booking booking) {
 		// TODO Auto-generated method stub
-		
+		booking.setTicketCost(booking.getNoOfPassengers());
 		return bookingDao.save(booking);
 	
 	}
@@ -52,8 +52,9 @@ public class BookingServiceImpl implements BookingService
 		Booking b = opbook.get();
 		b.setBookingDate(booking.getBookingDate());
 		b.setPassengerList(booking.getPassengerList());
-		b.setTicketCost(booking.getTicketCost());
+		booking.setTicketCost(booking.getNoOfPassengers());
 		b.setNoOfPassengers(booking.getNoOfPassengers());
+		b.setTicketCost(b.getNoOfPassengers());
 		return bookingDao.save(booking);
 	}
 

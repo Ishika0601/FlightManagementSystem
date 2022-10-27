@@ -24,7 +24,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Booking 
@@ -36,12 +40,14 @@ public class Booking
 	@Column(name="id")
 	BigInteger bookingId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     //@OnDelete(action = OnDeleteAction.CASCADE)
     //@JsonIgnore
 	User user;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
+	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
 	@Column(name="date")
 	LocalDateTime bookingDate;
 	
@@ -70,23 +76,13 @@ public class Booking
 		this.user = user;
 		this.bookingDate = bookingDate;
 		this.passengerList = passengerList;
-		this.ticketCost = ticketCost;
+		this.ticketCost = BigDecimal.valueOf(6000*noOfPassengers);
 		this.flight = flight;
 		this.noOfPassengers = noOfPassengers;
 	}
 	
 	
 	//Getter and Setters
-	
-
-	//toString Method
-	@Override
-	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", userId=" + user + ", bookingDate=" + bookingDate
-				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", noOfPassengers="
-				+ noOfPassengers + "]";
-	}
-
 	public BigInteger getBookingId() {
 		return bookingId;
 	}
@@ -116,6 +112,7 @@ public class Booking
 	}
 
 	public void setPassengerList(List<Passenger> passengerList) {
+		
 		this.passengerList = passengerList;
 	}
 
@@ -123,8 +120,8 @@ public class Booking
 		return ticketCost;
 	}
 
-	public void setTicketCost(BigDecimal ticketCost) {
-		this.ticketCost = ticketCost;
+	public void setTicketCost(Integer noOfPassengers) {
+		this.ticketCost = BigDecimal.valueOf(6000*noOfPassengers);
 	}
 
 	public ScheduledFlight getFlight() {
@@ -143,5 +140,15 @@ public class Booking
 		this.noOfPassengers = noOfPassengers;
 	}
 
+
+	//toString Method
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", userId=" + user + ", bookingDate=" + bookingDate
+				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", noOfPassengers="
+				+ noOfPassengers + "]";
+	}
+
+	
 	
 }

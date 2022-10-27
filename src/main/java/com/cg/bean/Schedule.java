@@ -14,6 +14,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Schedule {
 	
@@ -30,11 +35,13 @@ public class Schedule {
 	@OneToOne
 	Airport destinationAirport;
 	
-	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
+	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
 	@Column(name="atime")
 	LocalDateTime arrivalTime;
 	
-	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
+	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
 	@Column(name="dtime")
 	LocalDateTime departureTime;
 	

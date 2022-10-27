@@ -1,16 +1,21 @@
 package com.cg.bean;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
 	
 	@Id
-	private BigInteger userId;
+	private BigInteger id;
 	@Column(name="type")
 	private String userType;
 	@Column(name="name")
@@ -20,6 +25,9 @@ public class User {
 	@Column(name="phno")
 	private BigInteger userPhone;
 	private String email;
+	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	private List<Booking> bookings=new ArrayList<>();
 	
 	public User() {
 		
@@ -30,7 +38,7 @@ public class User {
 			String email) {
 		super();
 		this.userType = userType;
-		this.userId = userId;
+		this.id = userId;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.userPhone = userPhone;
@@ -45,12 +53,12 @@ public class User {
 		this.userType = userType;
 	}
 
-	public BigInteger getUserId() {
-		return userId;
+	public BigInteger getId() {
+		return id;
 	}
 
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
+	public void setId(BigInteger id) {
+		this.id = id;
 	}
 
 	public String getUserName() {
@@ -86,9 +94,19 @@ public class User {
 	}
 	
 	
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
+
 	@Override
 	public String toString() {
-		return "User [userType=" + userType + ", userId=" + userId + ", userName=" + userName + ", userPassword="
+		return "User [userType=" + userType + ", userId=" + id + ", userName=" + userName + ", userPassword="
 				+ userPassword + ", userPhone=" + userPhone + ", email=" + email + "]";
 	}
 	

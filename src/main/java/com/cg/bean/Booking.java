@@ -37,8 +37,8 @@ public class Booking
 	BigInteger bookingId;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "uid", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", nullable = false)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     //@JsonIgnore
 	User user;
 	
@@ -77,6 +77,16 @@ public class Booking
 	
 	
 	//Getter and Setters
+	
+
+	//toString Method
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", userId=" + user + ", bookingDate=" + bookingDate
+				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", noOfPassengers="
+				+ noOfPassengers + "]";
+	}
+
 	public BigInteger getBookingId() {
 		return bookingId;
 	}
@@ -89,7 +99,7 @@ public class Booking
 		return user;
 	}
 
-	public void setUserId(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -113,16 +123,15 @@ public class Booking
 		return ticketCost;
 	}
 
-	public void setTicketCost(int nop) {
-		
-		this.ticketCost = BigDecimal.valueOf(10000*nop);
+	public void setTicketCost(BigDecimal ticketCost) {
+		this.ticketCost = ticketCost;
 	}
 
-	public ScheduledFlight getScheduledFlight() {
+	public ScheduledFlight getFlight() {
 		return flight;
 	}
 
-	public void setScheduledFlight(ScheduledFlight flight) {
+	public void setFlight(ScheduledFlight flight) {
 		this.flight = flight;
 	}
 
@@ -132,14 +141,6 @@ public class Booking
 
 	public void setNoOfPassengers(Integer noOfPassengers) {
 		this.noOfPassengers = noOfPassengers;
-	}
-
-	//toString Method
-	@Override
-	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", userId=" + user + ", bookingDate=" + bookingDate
-				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", noOfPassengers="
-				+ noOfPassengers + "]";
 	}
 
 	

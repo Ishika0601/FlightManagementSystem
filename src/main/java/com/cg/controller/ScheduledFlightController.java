@@ -2,6 +2,7 @@ package com.cg.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -24,6 +25,10 @@ import com.cg.advice.ErrorResponse;
 import com.cg.bean.Airport;
 import com.cg.bean.ScheduledFlight;
 import com.cg.service.ScheduledFlightService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @RestController
 @RequestMapping("/scheduledflight")
@@ -41,7 +46,7 @@ public class ScheduledFlightController {
 	@PostMapping("/addSchFlight")
 	public ScheduledFlight addSchFlights(@RequestBody ScheduledFlight newScheduledFlight)
 	{
-		scheduledFlightService.validateScheduledFlight(newScheduledFlight);
+		//scheduledFlightService.validateScheduledFlight(newScheduledFlight);
 		return scheduledFlightService.scheduleFlight(newScheduledFlight);
 	}
 	
@@ -71,10 +76,14 @@ public class ScheduledFlightController {
 	}
 	
 	@GetMapping("/showByAirport/{src}/{dsc}/{date}")
-	public List<ScheduledFlight> showByAirport(@PathVariable Airport src,@PathVariable Airport dsc,@PathVariable LocalDate date)
+	public List<ScheduledFlight> showByAirport(@PathVariable String src,@PathVariable String dsc,@PathVariable String date)
 	{
-		return scheduledFlightService.viewScheduledFlights(src,dsc,date);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		  LocalDate localDate = LocalDate.parse(date, formatter);
+		return scheduledFlightService.viewScheduledFlights(src,dsc,localDate);
 	}
+	
+	
 	// local to the RestController
 	 @ExceptionHandler(InputMismatchException.class)
 	    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {

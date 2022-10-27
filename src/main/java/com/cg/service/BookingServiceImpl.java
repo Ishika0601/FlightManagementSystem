@@ -34,8 +34,7 @@ public class BookingServiceImpl implements BookingService
 	//add Booking
 	public Booking addBooking(Booking booking) {
 		// TODO Auto-generated method stub
-		Integer n = booking.getNoOfPassengers();
-		booking.setTicketCost(n);
+		
 		return bookingDao.save(booking);
 	
 	}
@@ -53,7 +52,7 @@ public class BookingServiceImpl implements BookingService
 		Booking b = opbook.get();
 		b.setBookingDate(booking.getBookingDate());
 		b.setPassengerList(booking.getPassengerList());
-		b.setTicketCost(booking.getNoOfPassengers());
+		b.setTicketCost(booking.getTicketCost());
 		b.setNoOfPassengers(booking.getNoOfPassengers());
 		return bookingDao.save(booking);
 	}
@@ -103,28 +102,28 @@ public class BookingServiceImpl implements BookingService
 	public void validateBooking(Booking booking) {
 		// TODO Auto-generated method stub
 		Integer nop = booking.getNoOfPassengers();
-		int availableSeats = booking.getScheduledFlight().getAvailableSeats();
+		int availableSeats = booking.getFlight().getAvailableSeats();
 		if(nop > availableSeats || nop>4)
 		{
 			throw new InvalidBookingException("Number of passengers are invalid");
 		}
 		
-		if(booking.getScheduledFlight().getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 
-				|| booking.getScheduledFlight().getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 
-				|| booking.getScheduledFlight().getSchedule().getArrivalTime().
-				compareTo(booking.getScheduledFlight().getSchedule().getDepartureTime())<0)
+		if(booking.getFlight().getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 
+				|| booking.getFlight().getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 
+				|| booking.getFlight().getSchedule().getArrivalTime().
+				compareTo(booking.getFlight().getSchedule().getDepartureTime())<0)
 		{
 			throw new InvalidBookingException("Date and time has already elapsed");
 		}
 		
 		List<Airport> a1 = airportDao.findAll();
-		if((!a1.contains(booking.getScheduledFlight().getSchedule().getDestinationAirport())) || 
-				(!a1.contains(booking.getScheduledFlight().getSchedule().getSourceAirport())))
+		if((!a1.contains(booking.getFlight().getSchedule().getDestinationAirport())) || 
+				(!a1.contains(booking.getFlight().getSchedule().getSourceAirport())))
 		{
 			throw new InvalidBookingException("Airport does not exist in the database");
 
 		}
-		if (booking.getScheduledFlight().getSchedule().getDestinationAirport().equals(booking.getScheduledFlight().getSchedule().getSourceAirport())) 
+		if (booking.getFlight().getSchedule().getDestinationAirport().equals(booking.getFlight().getSchedule().getSourceAirport())) 
 		{
 			throw new InvalidBookingException("Destination airport should not be same as arrival airport");
 		}

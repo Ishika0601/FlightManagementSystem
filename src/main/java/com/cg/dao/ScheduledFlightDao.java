@@ -13,6 +13,6 @@ public interface ScheduledFlightDao extends JpaRepository<ScheduledFlight, BigIn
 	
 	List<ScheduledFlight> findByFlightFlightNumber(BigInteger fno);
 	
-	//List<ScheduledFlight> viewScheduledFlights(Airport src, Airport dst, LocalDate date);
+	//List<ScheduledFlight> viewScheduledFlights(String src, String dst, LocalDate date);
 }
   

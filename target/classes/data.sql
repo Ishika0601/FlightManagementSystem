@@ -9,6 +9,6 @@ insert into flight(fno, cname, fmodel, seatcap) values (1001,'Indigo', 'Jet', 10
 insert into flight(fno, cname, fmodel, seatcap) values (1002,'Spicejet', 'Airbus', 120);
 insert into flight(fno, cname, fmodel, seatcap) values (1003,'Air India', 'Jet', 150);
 
-insert into user(user_id, email, name, pwd, phno, type) values (11, 'ram@gmail.com', 'Ram', 'ram', 1234567890, 'admin');
-insert into user(user_id, email, name, pwd, phno, type) values (12, 'sham@gmail.com', 'Sham', 'sham', 1234567891, 'customer');
-insert into user(user_id, email, name, pwd, phno, type) values (13, 'krishna@gmail.com', 'Krishna', 'krishna', 1234567892, 'customer');
+insert into user(id, email, name, pwd, phno, type) values (11, 'ram@gmail.com', 'Ram', 'ram', 1234567890, 'admin');
+insert into user(id, email, name, pwd, phno, type) values (12, 'sham@gmail.com', 'Sham', 'sham', 1234567891, 'customer');
+insert into user(id, email, name, pwd, phno, type) values (13, 'krishna@gmail.com', 'Krishna', 'krishna', 1234567892, 'customer');

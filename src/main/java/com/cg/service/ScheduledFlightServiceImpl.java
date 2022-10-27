@@ -113,13 +113,13 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	}
 
 	@Override
-	public List<ScheduledFlight> viewScheduledFlights(Airport src, Airport dst, LocalDate date) {
+	public List<ScheduledFlight> viewScheduledFlights(String src, String dst, LocalDate date) {
 		List<ScheduledFlight> sf1 = scheduledFlightDao.findAll();
 		List<ScheduledFlight> sf2 = new ArrayList<>();
 		
 		for(ScheduledFlight s : sf1)
 		{
-			if(s.getSchedule().getSourceAirport().equals(src) && s.getSchedule().getDestinationAirport().equals(dst) && date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0)
+			if(s.getSchedule().getSourceAirport().getAirportLocation().equals(src) && s.getSchedule().getDestinationAirport().getAirportLocation().equals(dst) && date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0)
 			{
 				sf2.add(s);
 			}

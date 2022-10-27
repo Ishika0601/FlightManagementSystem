@@ -21,5 +21,5 @@ public interface ScheduledFlightService {
 	
 	public void validateScheduledFlight(ScheduledFlight scft);
 	
-	public List<ScheduledFlight> viewScheduledFlights(Airport src, Airport dst, LocalDate date);
+	public List<ScheduledFlight> viewScheduledFlights(String src, String dst, LocalDate date);
 }

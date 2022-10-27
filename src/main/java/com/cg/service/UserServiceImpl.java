@@ -36,7 +36,7 @@ public class UserServiceImpl implements  UserService{
             throw new UserNotFoundException("No user found with id "+userId);
         }
         User u=optus.get();
-        u.setUserId(newAccount.getUserId());
+        u.setId(newAccount.getId());
         u.setUserName(newAccount.getUserName());
         u.setUserPassword(newAccount.getUserPassword());
         u.setEmail(newAccount.getEmail());

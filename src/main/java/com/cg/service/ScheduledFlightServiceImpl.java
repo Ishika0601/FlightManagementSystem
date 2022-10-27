@@ -95,13 +95,16 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		
-		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 || scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 || scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())<0)
+		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 || 
+				scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 || 
+				scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())<0)
 		{
 			throw new InvalidScheduledFlightException("Date time entered has already elapsed");
 		}
 		
 		List<Airport> a1 = airportDao.findAll();
-		if((!a1.contains(scft.getSchedule().getDestinationAirport())) || (!a1.contains(scft.getSchedule().getSourceAirport())))
+		if(a1.stream().noneMatch(a -> a.getAirportCode().equals(scft.getSchedule().getSourceAirport().getAirportCode())) || 
+				a1.stream().noneMatch(a -> a.getAirportCode().equals(scft.getSchedule().getDestinationAirport().getAirportCode())))
 		{
 			throw new InvalidScheduledFlightException("Airport does not exist in the database");
 		}
@@ -119,7 +122,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		
 		for(ScheduledFlight s : sf1)
 		{
-			if(s.getSchedule().getSourceAirport().getAirportLocation().equals(src) && s.getSchedule().getDestinationAirport().getAirportLocation().equals(dst) && date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0)
+			if(s.getSchedule().getSourceAirport().getAirportLocation().equals(src) && 
+					s.getSchedule().getDestinationAirport().getAirportLocation().equals(dst) && 
+					date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0)
 			{
 				sf2.add(s);
 			}

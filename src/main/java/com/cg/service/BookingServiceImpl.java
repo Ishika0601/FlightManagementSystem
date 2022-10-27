@@ -117,11 +117,10 @@ public class BookingServiceImpl implements BookingService
 		}
 		
 		List<Airport> a1 = airportDao.findAll();
-		if((!a1.contains(booking.getFlight().getSchedule().getDestinationAirport())) || 
-				(!a1.contains(booking.getFlight().getSchedule().getSourceAirport())))
+		if(a1.stream().noneMatch(a -> a.getAirportCode().equals(booking.getFlight().getSchedule().getSourceAirport().getAirportCode())) || 
+		a1.stream().noneMatch(a -> a.getAirportCode().equals(booking.getFlight().getSchedule().getDestinationAirport().getAirportCode())))
 		{
 			throw new InvalidBookingException("Airport does not exist in the database");
-
 		}
 		if (booking.getFlight().getSchedule().getDestinationAirport().equals(booking.getFlight().getSchedule().getSourceAirport())) 
 		{

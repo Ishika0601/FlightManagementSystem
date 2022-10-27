@@ -46,7 +46,7 @@ public class ScheduledFlightController {
 	@PostMapping("/addSchFlight")
 	public ScheduledFlight addSchFlights(@RequestBody ScheduledFlight newScheduledFlight)
 	{
-		//scheduledFlightService.validateScheduledFlight(newScheduledFlight);
+		scheduledFlightService.validateScheduledFlight(newScheduledFlight);
 		return scheduledFlightService.scheduleFlight(newScheduledFlight);
 	}
 	

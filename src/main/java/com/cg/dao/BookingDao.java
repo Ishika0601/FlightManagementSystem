@@ -9,5 +9,6 @@ import com.cg.bean.Booking;
 
 
 public interface BookingDao extends JpaRepository<Booking, BigInteger>{
-
+	
+	
 }

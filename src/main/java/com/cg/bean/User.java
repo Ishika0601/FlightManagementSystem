@@ -16,27 +16,33 @@ public class User {
 	
 	@Id
 	private BigInteger id;
+	
 	@Column(name="type")
 	private String userType;
+	
 	@Column(name="name")
 	private String userName;
+	
 	@Column(name="pwd")
 	private String userPassword;
+	
 	@Column(name="phno")
 	private BigInteger userPhone;
+	
 	private String email;
+	
 	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private List<Booking> bookings=new ArrayList<>();
 	
+	//Default constructor
 	public User() {
 		
 	}
 	
-
+	//Parameterized Constructor
 	public User(String userType, BigInteger userId, String userName, String userPassword, BigInteger userPhone,
 			String email) {
-		super();
 		this.userType = userType;
 		this.id = userId;
 		this.userName = userName;
@@ -45,6 +51,7 @@ public class User {
 		this.email = email;
 	}
 
+	//Getters and setters
 	public String getUserType() {
 		return userType;
 	}
@@ -103,7 +110,7 @@ public class User {
 		this.bookings = bookings;
 	}
 
-
+	//toString method
 	@Override
 	public String toString() {
 		return "User [userType=" + userType + ", userId=" + id + ", userName=" + userName + ", userPassword="

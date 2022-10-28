@@ -17,19 +17,20 @@ public class Airport {
 	
 	@Column(name="location")
 	String airportLocation;
-
+	
+	//Default unparameterized constructor
 	public Airport() {
 		
 	}
 	
+	//Parameterized constructor
 	public Airport(String airportCode,String airportName,String airportLocation) {
-		super();
 		this.airportCode = airportCode;
 		this.airportName = airportName;
 		this.airportLocation = airportLocation;
 	}
 
-
+	//Getters & setters
 	public String getAirportCode() {
 		return airportCode;
 	}

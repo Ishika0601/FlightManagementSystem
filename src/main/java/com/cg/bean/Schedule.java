@@ -26,20 +26,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class Schedule {
 	
 	@Id
-	@SequenceGenerator(name="sequence4", initialValue=100)
+	@SequenceGenerator(name="sequence4", initialValue=100)			//Sequence generated from 100 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence4")
 	BigInteger sid;
 	
-//	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//	@JoinColumn(name="airportCode")
 	@OneToOne
 	Airport sourceAirport;
 	
-//	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//	@JoinColumn(name="airportCode")
 	@OneToOne
 	Airport destinationAirport;
 	
+	//specify how to format datetime acc to SimpleDateTime format
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
 	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
 	@Column(name="atime")
@@ -55,9 +52,8 @@ public class Schedule {
 		
 	}
 	
-	
+	//Parameterized Constructor
 	public Schedule(BigInteger sid, Airport sourceAirport, Airport destinationAirport, LocalDateTime arrivalTime,LocalDateTime departureTime) {
-		super();
 		this.sid = sid;
 		this.sourceAirport = sourceAirport;
 		this.destinationAirport = destinationAirport;
@@ -65,6 +61,7 @@ public class Schedule {
 		this.departureTime = departureTime;
 	}
 
+	//Getters and setters
 	public BigInteger getSid() {
 		return sid;
 	}
@@ -73,7 +70,6 @@ public class Schedule {
 		this.sid = sid;
 	}
 
-	//Getters and setters
 	public Airport getSourceAirport() {
 		return sourceAirport;
 	}
@@ -106,7 +102,7 @@ public class Schedule {
 		this.departureTime = departureTime;
 	}
 
-
+	//toString method
 	@Override
 	public String toString() {
 		return "Schedule [sid=" + sid + ", sourceAirport=" + sourceAirport + ", destinationAirport="

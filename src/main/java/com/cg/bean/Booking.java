@@ -35,17 +35,16 @@ public class Booking
 {
 	
 	@Id
-	@SequenceGenerator(name="sequence1", initialValue=1000)
+	@SequenceGenerator(name="sequence1", initialValue=1000)			//Sequence generated from 1000 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence1")
 	@Column(name="id")
 	BigInteger bookingId;
 	
 	@ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    //@JsonIgnore
 	User user;
 	
+	//specify how to format datetime acc to SimpleDateTime format
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
 	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
 	@Column(name="date")

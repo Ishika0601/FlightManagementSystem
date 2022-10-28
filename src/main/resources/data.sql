@@ -5,10 +5,11 @@ insert into airport(code,name,location) values (104,'Madras International Airpor
 insert into airport(code,name,location) values (105,'Rajiv Gandhi International Airport','Hyderabad');
 insert into airport(code,name,location) values (106,'Netaji Subhash Chandra Bose International Airport','Kolkata');
 
-insert into flight(fno, cname, fmodel, seatcap) values (1001,'Indigo', 'Jet', 100);
-insert into flight(fno, cname, fmodel, seatcap) values (1002,'Spicejet', 'Airbus', 120);
-insert into flight(fno, cname, fmodel, seatcap) values (1003,'Air India', 'Jet', 150);
+insert into flight(fno, cname, fmodel, seatcap) values (10001,'Indigo', 'Jet', 100);
+insert into flight(fno, cname, fmodel, seatcap) values (10002,'Spicejet', 'Airbus', 120);
+insert into flight(fno, cname, fmodel, seatcap) values (10003,'Air India', 'Jet', 150);
 
 insert into user(id, email, name, pwd, phno, type) values (11, 'ram@gmail.com', 'Ram', 'ram', 1234567890, 'admin');
 insert into user(id, email, name, pwd, phno, type) values (12, 'sham@gmail.com', 'Sham', 'sham', 1234567891, 'customer');
 insert into user(id, email, name, pwd, phno, type) values (13, 'krishna@gmail.com', 'Krishna', 'krishna', 1234567892, 'customer');
+insert into user(id, email, name, pwd, phno, type) values (14, 'sita@gmail.com', 'Sita', 'sita', 1234567893, 'customer');

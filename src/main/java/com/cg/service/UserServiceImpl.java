@@ -4,11 +4,9 @@ import com.cg.bean.User;
 import com.cg.dao.UserDao;
 import com.cg.exception.InvalidUserException;
 import com.cg.exception.UserNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +31,7 @@ public class UserServiceImpl implements  UserService{
     public User updateUser(User newAccount, BigInteger userId) {
         Optional<User> optus=userDao.findById(userId); 
         if(optus.isEmpty()){
+        	//throw exception if no user found
             throw new UserNotFoundException("No user found with id "+userId);
         }
         User u=optus.get();
@@ -48,27 +47,31 @@ public class UserServiceImpl implements  UserService{
 
 
     }
+    
     @Transactional
     @Override
     public void deleteUser(BigInteger userId) {
     	Optional<User> optus=userDao.findById(userId);
     	if(optus.isEmpty()){
+    		//throw exception if no user found
     		throw new UserNotFoundException("No user found with id "+userId);
         }
         userDao.deleteById(userId);
 
     }
 
-    @Transactional
+    
     @Override
     public User viewUser(BigInteger userId) {
         Optional<User> optus=userDao.findById(userId);
         if(optus.isEmpty()){
+        	//throw exception if no user found
         	throw new UserNotFoundException("No user found with id "+userId);
         }
         return optus.get();
     }
-    @Transactional
+    
+    
     @Override
     public List<User> viewUser() {
         return userDao.findAll();
@@ -77,6 +80,8 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public void validateUser(User user) {
+    	//phone no should be of 10 digits & not start with 0
+    	//email's local part should have alphanumeric characters
         BigInteger phoneNo=user.getUserPhone();
         String phno = phoneNo.toString();
         Pattern p= Pattern.compile("^[1-9][0-9]{9}$");
@@ -93,15 +98,7 @@ public class UserServiceImpl implements  UserService{
          else if((!m.matches()) && (!m1.matches())){
              throw new InvalidUserException("Phone number and email are invalid");
          }
-//        if(!m.find()){
-//       	 System.out.print("Phone is invalid");
-//       }
-//        if (!m1.find()) {
-//       	System.out.print("Email is invalid");
-//        }
-
+        
     }
-
-
 
 }

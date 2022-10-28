@@ -1,7 +1,6 @@
 package com.cg.bean;
 
 import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,16 +13,20 @@ import javax.persistence.SequenceGenerator;
 public class Passenger {
 	
 	@Id
-	@SequenceGenerator(name="sequence2", initialValue=1000)
+	@SequenceGenerator(name="sequence2", initialValue=1000)			//Sequence generated from 1000 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence2")
 	@Column(name="pnr")
 	BigInteger pnrNumber;
+	
 	@Column(name="name")
 	String passengerName;
+	
 	@Column(name="age")
 	Integer passengerAge;
+	
 	@Column(name="uin")
 	BigInteger passengerUIN;
+	
 	Double luggage;
 	
 	//Default Constructor
@@ -33,7 +36,6 @@ public class Passenger {
 	
 	//Parameterized Constructor
 	public Passenger(BigInteger pnrNumber, String passengerName, Integer passengerAge, BigInteger passengerUIN,Double luggage) {
-		super();
 		this.pnrNumber = pnrNumber;
 		this.passengerName = passengerName;
 		this.passengerAge = passengerAge;

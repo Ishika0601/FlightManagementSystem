@@ -3,11 +3,13 @@ package com.cg.bean;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,28 +17,36 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 	
 	@Id
+	@SequenceGenerator(name="sequence6", initialValue=15)			//Sequence generated from 15 auto increment by 1
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence6")
 	private BigInteger id;
+	
 	@Column(name="type")
 	private String userType;
+	
 	@Column(name="name")
 	private String userName;
+	
 	@Column(name="pwd")
 	private String userPassword;
+	
 	@Column(name="phno")
 	private BigInteger userPhone;
+	
 	private String email;
+	
 	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private List<Booking> bookings=new ArrayList<>();
 	
+	//Default constructor
 	public User() {
 		
 	}
 	
-
+	//Parameterized Constructor
 	public User(String userType, BigInteger userId, String userName, String userPassword, BigInteger userPhone,
 			String email) {
-		super();
 		this.userType = userType;
 		this.id = userId;
 		this.userName = userName;
@@ -45,6 +55,7 @@ public class User {
 		this.email = email;
 	}
 
+	//Getters and setters
 	public String getUserType() {
 		return userType;
 	}
@@ -103,7 +114,7 @@ public class User {
 		this.bookings = bookings;
 	}
 
-
+	//toString method
 	@Override
 	public String toString() {
 		return "User [userType=" + userType + ", userId=" + id + ", userName=" + userName + ", userPassword="

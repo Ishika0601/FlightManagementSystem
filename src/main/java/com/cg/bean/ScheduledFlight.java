@@ -1,15 +1,12 @@
 package com.cg.bean;
 
 import java.math.BigInteger;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -17,35 +14,33 @@ import javax.persistence.SequenceGenerator;
 public class ScheduledFlight {
 	
 	@Id
-	@SequenceGenerator(name="sequence5", initialValue=100)
+	@SequenceGenerator(name="sequence5", initialValue=100)			//Sequence generated from 100 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence5")
 	BigInteger sfid;
 	
 	@OneToOne
-//	@JoinColumn(name="flightNumber")
 	Flight flight;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-//	@JoinColumn(name="sid")
 	Schedule schedule;
 	
 	@Column(name="avalseat")
 	int availableSeats;
 
+	//Default constructor
 	public ScheduledFlight() {
 		
 	}
 
-	
+	//Parameterized Constructor
 	public ScheduledFlight(BigInteger sfid, Flight flight, Schedule schedule, int availableSeats) {
-		super();
 		this.sfid = sfid;
 		this.flight = flight;
 		this.schedule = schedule;
 		this.availableSeats = availableSeats;
 	}
 
-
+	//Getters and setters
 	public BigInteger getSfid() {
 		return sfid;
 	}
@@ -78,7 +73,7 @@ public class ScheduledFlight {
 		this.availableSeats = availableSeats;
 	}
 
-
+	//toString method
 	@Override
 	public String toString() {
 		return "ScheduledFlight [sfid=" + sfid + ", flight=" + flight + ", schedule=" + schedule + ", availableSeats="

@@ -3,7 +3,6 @@ package com.cg.bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Airport {
@@ -17,19 +16,20 @@ public class Airport {
 	
 	@Column(name="location")
 	String airportLocation;
-
+	
+	//Default unparameterized constructor
 	public Airport() {
 		
 	}
 	
+	//Parameterized constructor
 	public Airport(String airportCode,String airportName,String airportLocation) {
-		super();
 		this.airportCode = airportCode;
 		this.airportName = airportName;
 		this.airportLocation = airportLocation;
 	}
 
-
+	//Getters & setters
 	public String getAirportCode() {
 		return airportCode;
 	}

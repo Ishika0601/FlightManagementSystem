@@ -35,8 +35,8 @@ public class Booking
 {
 	
 	@Id
-	@SequenceGenerator(name="sequence", initialValue=1000)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
+	@SequenceGenerator(name="sequence1", initialValue=1000)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence1")
 	@Column(name="id")
 	BigInteger bookingId;
 	

@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cg.bean.Airport;
 import com.cg.bean.Booking;
 import com.cg.bean.Passenger;
+import com.cg.bean.ScheduledFlight;
 import com.cg.dao.AirportDao;
 import com.cg.dao.BookingDao;
+import com.cg.dao.ScheduledFlightDao;
 import com.cg.exception.BookingNotFoundException;
 import com.cg.exception.InvalidBookingException;
 import com.cg.exception.InvalidScheduledFlightException;
@@ -29,12 +31,17 @@ public class BookingServiceImpl implements BookingService
 	@Autowired
 	AirportDao airportDao;
 	
+	@Autowired
+	ScheduledFlightDao scheduledFlightDao;
+	
 	@Transactional
 	@Override
 	//add Booking
 	public Booking addBooking(Booking booking) {
 		// TODO Auto-generated method stub
 		booking.setTicketCost(booking.getNoOfPassengers());
+		ScheduledFlight sf = scheduledFlightDao.findById(booking.getFlight().getSfid()).get();
+		sf.setAvailableSeats(sf.getAvailableSeats()-booking.getNoOfPassengers());
 		return bookingDao.save(booking);
 	
 	}
@@ -53,6 +60,9 @@ public class BookingServiceImpl implements BookingService
 		b.setBookingDate(booking.getBookingDate());
 		b.setPassengerList(booking.getPassengerList());
 		booking.setTicketCost(booking.getNoOfPassengers());
+		int diff = booking.getNoOfPassengers() - b.getNoOfPassengers();
+		ScheduledFlight sf = scheduledFlightDao.findById(booking.getFlight().getSfid()).get();
+		sf.setAvailableSeats(sf.getAvailableSeats()-diff);
 		b.setNoOfPassengers(booking.getNoOfPassengers());
 		b.setTicketCost(b.getNoOfPassengers());
 		return bookingDao.save(booking);
@@ -88,7 +98,10 @@ public class BookingServiceImpl implements BookingService
 		Optional<Booking> opbook = bookingDao.findById(id);
 		if(opbook.isPresent())
 		{
-		bookingDao.deleteById(id);
+			Booking booking = opbook.get();
+			ScheduledFlight sf = scheduledFlightDao.findById(booking.getFlight().getSfid()).get();
+			sf.setAvailableSeats(sf.getAvailableSeats()+booking.getNoOfPassengers());
+			bookingDao.delete(booking);
 		}
 		else
 		{

@@ -14,8 +14,8 @@ import javax.persistence.SequenceGenerator;
 public class Passenger {
 	
 	@Id
-	@SequenceGenerator(name="sequence", initialValue=1000)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
+	@SequenceGenerator(name="sequence2", initialValue=1000)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence2")
 	@Column(name="pnr")
 	BigInteger pnrNumber;
 	@Column(name="name")

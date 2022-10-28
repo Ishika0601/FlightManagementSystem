@@ -7,9 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -23,6 +26,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class Schedule {
 	
 	@Id
+	@SequenceGenerator(name="sequence4", initialValue=100)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence4")
 	BigInteger sid;
 	
 //	@OneToOne(cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

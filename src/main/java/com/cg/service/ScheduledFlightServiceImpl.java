@@ -124,7 +124,8 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		{
 			if(s.getSchedule().getSourceAirport().getAirportLocation().equals(src) && 
 					s.getSchedule().getDestinationAirport().getAirportLocation().equals(dst) && 
-					date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0)
+					date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0
+					&& s.getAvailableSeats()!=0)
 			{
 				sf2.add(s);
 			}

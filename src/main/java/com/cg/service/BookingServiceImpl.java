@@ -120,7 +120,7 @@ public class BookingServiceImpl implements BookingService
 		Integer nop = booking.getNoOfPassengers();
 		int availableSeats = booking.getFlight().getAvailableSeats();
 		//no of passengers should be <= 4 & available seats
-		if(nop > availableSeats || nop>4 || nop<1)
+		if(nop > availableSeats || nop>4 || nop<1 || nop!=booking.getPassengerList().size())
 		{
 			throw new InvalidBookingException("Number of passengers are invalid");
 		}

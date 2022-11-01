@@ -1,17 +1,12 @@
 package com.cg.bean;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -34,10 +29,6 @@ public class User {
 	private BigInteger userPhone;
 	
 	private String email;
-	
-	@OneToMany(mappedBy="user")
-	@JsonIgnore
-	private List<Booking> bookings=new ArrayList<>();
 	
 	//Default constructor
 	public User() {
@@ -105,15 +96,6 @@ public class User {
 	}
 	
 	
-	public List<Booking> getBookings() {
-		return bookings;
-	}
-
-
-	public void setBookings(List<Booking> bookings) {
-		this.bookings = bookings;
-	}
-
 	//toString method
 	@Override
 	public String toString() {

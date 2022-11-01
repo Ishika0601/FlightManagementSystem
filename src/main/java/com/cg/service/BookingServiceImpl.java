@@ -14,12 +14,13 @@ import com.cg.bean.Airport;
 import com.cg.bean.Booking;
 import com.cg.bean.Passenger;
 import com.cg.bean.ScheduledFlight;
+import com.cg.bean.User;
 import com.cg.dao.AirportDao;
 import com.cg.dao.BookingDao;
 import com.cg.dao.ScheduledFlightDao;
+import com.cg.dao.UserDao;
 import com.cg.exception.BookingNotFoundException;
 import com.cg.exception.InvalidBookingException;
-import com.cg.exception.ScheduledFlightNotFoundException;
 
 
 @Service("bookingService")
@@ -33,6 +34,9 @@ public class BookingServiceImpl implements BookingService
 	
 	@Autowired
 	ScheduledFlightDao scheduledFlightDao;
+	
+	@Autowired
+	UserDao userDao;
 	
 	@Transactional
 	@Override
@@ -128,18 +132,22 @@ public class BookingServiceImpl implements BookingService
 		
 		//scheduled flight should be present in the database
 		List<ScheduledFlight> sflist = scheduledFlightDao.findAll();
-		if(sflist.stream().noneMatch(sf -> sf.getSfid()==booking.getFlight().getSfid())) 
+		if(sflist.stream().noneMatch(sf -> sf.getSfid().equals(booking.getFlight().getSfid()))) 
 		{
-			throw new ScheduledFlightNotFoundException("No flight scheduled for id "+booking.getFlight().getSfid());
+			throw new InvalidBookingException("No flight scheduled for id "+booking.getFlight().getSfid());
 		}
 		
-		//arrival & departure date time > current date time & arrival > departure date time
+		//arrival & departure date time > current date time 
 		if(booking.getFlight().getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 
-				|| booking.getFlight().getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 
-				|| booking.getFlight().getSchedule().getArrivalTime().
-				compareTo(booking.getFlight().getSchedule().getDepartureTime())<0)
+				|| booking.getFlight().getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0)
 		{
 			throw new InvalidBookingException("Date and time has already elapsed");
+		}
+		
+		//arrival > departure date time
+		if (booking.getFlight().getSchedule().getArrivalTime().compareTo(booking.getFlight().getSchedule().getDepartureTime())<0)
+		{
+			throw new InvalidBookingException("Arrival time should be greater than the departure time");
 		}
 		
 		//Destination & source airport should be there in the database
@@ -153,9 +161,15 @@ public class BookingServiceImpl implements BookingService
 		//Destination & source airport should not be same
 		if (booking.getFlight().getSchedule().getDestinationAirport().equals(booking.getFlight().getSchedule().getSourceAirport())) 
 		{
-			throw new InvalidBookingException("Destination airport should not be same as arrival airport");
+			throw new InvalidBookingException("Destination airport should not be same as source airport");
 		}
 		
+		//user should be present in the database
+		List<User> u1 = userDao.findAll();
+		if (u1.stream().noneMatch(u -> u.getId().equals(booking.getUser().getId())))
+		{
+			throw new InvalidBookingException("No user found with id "+booking.getUser().getId());
+		}
 		//Validate each passenger in the passenger list
 		for(Passenger p:booking.getPassengerList())
 		{

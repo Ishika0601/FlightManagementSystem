@@ -91,14 +91,18 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		
-		//arrival & departure date time > current date time & arrival > departure date time
+		//arrival & departure date time > current date time 
 		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 || 
-				scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 || 
-				scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())<0)
+				scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 )
 		{
 			throw new InvalidScheduledFlightException("Date time entered has already elapsed");
 		}
 		
+		//arrival > departure date time
+		if (scft.getSchedule().getArrivalTime().compareTo(scft.getSchedule().getDepartureTime())<0)
+		{
+			throw new InvalidScheduledFlightException("Arrival time should be greater than the departure time");
+		}
 		//Destination & source airport should be there in the database
 		List<Airport> a1 = airportDao.findAll();
 		if(a1.stream().noneMatch(a -> a.getAirportCode().equals(scft.getSchedule().getSourceAirport().getAirportCode())) || 
@@ -110,7 +114,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		//Destination & source airport should not be same
 		if (scft.getSchedule().getDestinationAirport().equals(scft.getSchedule().getSourceAirport())) 
 		{
-			throw new InvalidScheduledFlightException("Destination airport should not be same as arrival airport");
+			throw new InvalidScheduledFlightException("Destination airport should not be same as source airport");
 		}
 		
 	}

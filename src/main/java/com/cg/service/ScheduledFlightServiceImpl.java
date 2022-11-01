@@ -50,14 +50,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 			throw new ScheduledFlightNotFoundException("No scheduled flight found");
 		}
 		ScheduledFlight b = optsf.get();
-		Schedule c = scheduleDao.findById(b.getSchedule().getSid()).get();
 		
 		b.setAvailableSeats(scheduledFlight.getAvailableSeats());
-		c.setSourceAirport(scheduledFlight.getSchedule().getSourceAirport());
-		c.setDestinationAirport(scheduledFlight.getSchedule().getDestinationAirport());
-		c.setArrivalTime(scheduledFlight.getSchedule().getArrivalTime());
-		c.setDepartureTime(scheduledFlight.getSchedule().getDepartureTime());
-		
+		b.setSchedule(scheduledFlight.getSchedule());
 		return scheduledFlightDao.save(b);
 	}
  

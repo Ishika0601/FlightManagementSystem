@@ -19,6 +19,7 @@ import com.cg.dao.BookingDao;
 import com.cg.dao.ScheduledFlightDao;
 import com.cg.exception.BookingNotFoundException;
 import com.cg.exception.InvalidBookingException;
+import com.cg.exception.ScheduledFlightNotFoundException;
 
 
 @Service("bookingService")
@@ -120,9 +121,16 @@ public class BookingServiceImpl implements BookingService
 		Integer nop = booking.getNoOfPassengers();
 		int availableSeats = booking.getFlight().getAvailableSeats();
 		//no of passengers should be <= 4 & available seats
-		if(nop > availableSeats || nop>4)
+		if(nop > availableSeats || nop>4 || nop<1 || nop!=booking.getPassengerList().size())
 		{
 			throw new InvalidBookingException("Number of passengers are invalid");
+		}
+		
+		//scheduled flight should be present in the database
+		List<ScheduledFlight> sflist = scheduledFlightDao.findAll();
+		if(sflist.stream().noneMatch(sf -> sf.getSfid()==booking.getFlight().getSfid())) 
+		{
+			throw new ScheduledFlightNotFoundException("No flight scheduled for id "+booking.getFlight().getSfid());
 		}
 		
 		//arrival & departure date time > current date time & arrival > departure date time

@@ -123,7 +123,7 @@ public class BookingServiceImpl implements BookingService
 	@Override
 	public void validateBooking(Booking booking) {
 		Integer nop = booking.getNoOfPassengers();
-		int availableSeats = booking.getFlight().getAvailableSeats();
+		int availableSeats = scheduledFlightDao.findById(booking.getFlight().getSfid()).get().getAvailableSeats();
 		//no of passengers should be <= 4 & available seats
 		if(nop > availableSeats || nop>4 || nop<1 || nop!=booking.getPassengerList().size())
 		{
@@ -159,7 +159,7 @@ public class BookingServiceImpl implements BookingService
 		}
 		
 		//Destination & source airport should not be same
-		if (booking.getFlight().getSchedule().getDestinationAirport().equals(booking.getFlight().getSchedule().getSourceAirport())) 
+		if (booking.getFlight().getSchedule().getDestinationAirport().getAirportCode().equals(booking.getFlight().getSchedule().getSourceAirport().getAirportCode())) 
 		{
 			throw new InvalidBookingException("Destination airport should not be same as source airport");
 		}

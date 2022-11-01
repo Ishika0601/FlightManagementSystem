@@ -112,7 +112,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		}
 		
 		//Destination & source airport should not be same
-		if (scft.getSchedule().getDestinationAirport().equals(scft.getSchedule().getSourceAirport())) 
+		if (scft.getSchedule().getDestinationAirport().getAirportCode().equals(scft.getSchedule().getSourceAirport().getAirportCode())) 
 		{
 			throw new InvalidScheduledFlightException("Destination airport should not be same as source airport");
 		}

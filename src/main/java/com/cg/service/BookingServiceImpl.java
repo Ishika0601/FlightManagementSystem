@@ -122,7 +122,7 @@ public class BookingServiceImpl implements BookingService
 	
 	@Override
 	public void validateBooking(Booking booking) {
-		Integer nop = booking.getNoOfPassengers();
+		int nop = booking.getNoOfPassengers();
 		int availableSeats = scheduledFlightDao.findById(booking.getFlight().getSfid()).get().getAvailableSeats();
 		//no of passengers should be <= 4 & available seats
 		if(nop > availableSeats || nop>4 || nop<1 || nop!=booking.getPassengerList().size())

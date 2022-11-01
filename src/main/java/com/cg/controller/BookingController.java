@@ -23,6 +23,7 @@ public class BookingController
 	BookingService bookingService;
 	
 	/*
+	 * 
 	 URI : http://localhost:9001/booking/showAllBookings
 	 METHOD : GET
 	 */

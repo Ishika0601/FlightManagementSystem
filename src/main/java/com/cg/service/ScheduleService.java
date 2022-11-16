@@ -38,4 +38,6 @@ public interface ScheduleService {
 	//patch schedule
 	public Schedule patchSchedule(BigInteger sid, Schedule schedule);
 	
+	//validate schedule
+	public void validateSchedule(Schedule schedule);
 }

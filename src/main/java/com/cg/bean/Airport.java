@@ -1,5 +1,7 @@
 package com.cg.bean;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +11,7 @@ public class Airport {
 	
 	@Id
 	@Column(name="code")
-	String airportCode;
+	BigInteger airportCode;
 
 	@Column(name="name")
 	String airportName;
@@ -23,18 +25,18 @@ public class Airport {
 	}
 	
 	//Parameterized constructor
-	public Airport(String airportCode,String airportName,String airportLocation) {
+	public Airport(BigInteger airportCode,String airportName,String airportLocation) {
 		this.airportCode = airportCode;
 		this.airportName = airportName;
 		this.airportLocation = airportLocation;
 	}
 
 	//Getters & setters
-	public String getAirportCode() {
+	public BigInteger getAirportCode() {
 		return airportCode;
 	}
 
-	public void setAirportCode(String airportCode) {
+	public void setAirportCode(BigInteger airportCode) {
 		this.airportCode = airportCode;
 	}
 
@@ -57,7 +59,7 @@ public class Airport {
 	//toString method
 	@Override
 	public String toString() {
-		return "Flight [airportCode=" + airportCode + ", airportName=" + airportName + ", airportLocation="
+		return "Airport [airportCode=" + airportCode + ", airportName=" + airportName + ", airportLocation="
 				+ airportLocation + "]";
 	}
 

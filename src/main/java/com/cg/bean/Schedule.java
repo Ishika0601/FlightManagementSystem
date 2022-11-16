@@ -28,13 +28,13 @@ public class Schedule {
 	Airport destinationAirport;
 	
 	//specify how to format datetime acc to SimpleDateTime format
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
-	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
+	@JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", shape = Shape.STRING)
+	@ApiModelProperty(required = true, example = "2021-08-20T00:00:00")
 	@Column(name="atime")
 	LocalDateTime arrivalTime;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
-	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
+	@JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", shape = Shape.STRING)
+	@ApiModelProperty(required = true, example = "2021-08-20T00:00:00")
 	@Column(name="dtime")
 	LocalDateTime departureTime;
 	

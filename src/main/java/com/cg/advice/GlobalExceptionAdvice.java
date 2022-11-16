@@ -73,6 +73,20 @@ public class GlobalExceptionAdvice {
 		return e.getMessage();
 	}
 	
+	//Handler for Schedule Not Found Exception
+	@ExceptionHandler(ScheduleNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	String scheduleNotFoundHandler(ScheduleNotFoundException e) {
+		return e.getMessage();
+	}
+		
+	//Handler for Invalid Booking Exception
+	@ExceptionHandler(InvalidScheduleException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	String scheduleInvalidHandler(InvalidScheduleException e) {
+		return e.getMessage();
+	}
+	
 	//Handler for all other exceptions
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -73,6 +73,8 @@ public class AirportServiceImpl implements AirportService {
 			throw new AirportNotFoundException("No airport found with code "+code);
 		}
 		Airport ap = a.get();
+		ap.setAirportLocation(airport.getAirportLocation());
+		ap.setAirportName(airport.getAirportName());
 		return airportDao.save(ap);
 	}
 
@@ -104,7 +106,7 @@ public class AirportServiceImpl implements AirportService {
 		if (!airport.getAirportName().equals("empty")) {
 			ap.setAirportName(airport.getAirportName());
 		}
-		return ap;
+		return airportDao.save(ap);
 	}
 
 }

@@ -13,8 +13,5 @@ public interface ScheduleDao extends JpaRepository<Schedule, BigInteger>{
 	
 	public List<Schedule> findByDestinationAirportAirportName(String name);
 	
-	public List<Schedule> findByArrivalTime(LocalDateTime arrival);
-	
-	public List<Schedule> findByDepartureTime(LocalDateTime departure);
 }
   

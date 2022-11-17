@@ -1,8 +1,10 @@
 package com.cg.service;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,23 +63,45 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<Schedule> viewScheduleByArrivalTime(LocalDateTime arrival) {
-		List<Schedule> s = scheduleDao.findByArrivalTime(arrival);
-		if (s.size()==0) {
-			//throw exception if no schedule is found
-			throw new ScheduleNotFoundException("No schedule found for arrival time "+arrival);
+	public List<Schedule> viewScheduleByArrivalDate(LocalDate arrival) {
+		List<Schedule> s1 = scheduleDao.findAll();
+		List<Schedule> s2 = new ArrayList<>();
+		
+		for(Schedule s : s1)
+		{
+			if(arrival.compareTo(s.getArrivalTime().toLocalDate())==0)
+			{
+				//add scheduled flight in the list if it is between the given airports & available seats !=0
+				s2.add(s);
+			}
 		}
-		return s;
+		if (s2.size()==0) {
+			
+			//throw exception if no schedule found
+			throw new ScheduleNotFoundException("No schedule found for "+arrival);
+		}
+		return s2;
 	}
 
 	@Override
-	public List<Schedule> viewScheduleByDepartureTime(LocalDateTime departure) {
-		List<Schedule> s = scheduleDao.findByDepartureTime(departure);
-		if (s.size()==0) {
-			//throw exception if no schedule is found
-			throw new ScheduleNotFoundException("No schedule found for departure time "+departure);
+	public List<Schedule> viewScheduleByDepartureDate(LocalDate departure) {
+		List<Schedule> s1 = scheduleDao.findAll();
+		List<Schedule> s2 = new ArrayList<>();
+		
+		for(Schedule s : s1)
+		{
+			if(departure.compareTo(s.getDepartureTime().toLocalDate())==0)
+			{
+				//add scheduled flight in the list if it is between the given airports & available seats !=0
+				s2.add(s);
+			}
 		}
-		return s;
+		if (s2.size()==0) {
+			
+			//throw exception if no schedule found
+			throw new ScheduleNotFoundException("No schedule found on "+departure);
+		}
+		return s2;
 	}
 	
 	@Transactional

@@ -2,6 +2,7 @@ package com.cg.service;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.bean.Airport;
 import com.cg.bean.Schedule;
+import com.cg.dao.AirportDao;
 import com.cg.dao.ScheduleDao;
+import com.cg.exception.InvalidScheduleException;
 import com.cg.exception.ScheduleNotFoundException;
 
 @Service("scheduleService")
@@ -18,6 +22,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Autowired
 	ScheduleDao scheduleDao;
+	@Autowired
+	AirportDao airportDao;
 
 	@Override
 	public List<Schedule> viewSchedule() {
@@ -117,12 +123,53 @@ public class ScheduleServiceImpl implements ScheduleService {
 			throw new ScheduleNotFoundException("No schedule found with id "+sid);
 		}
 		Schedule s = sop.get();
-		return null;
+		if (schedule.getSourceAirport().getAirportCode()!=BigInteger.valueOf(0)) {
+			Airport src = airportDao.findById(schedule.getSourceAirport().getAirportCode()).get();
+			s.setSourceAirport(src);
+		}
+		if (schedule.getDestinationAirport().getAirportCode()!=BigInteger.valueOf(0)) {
+			Airport dst = airportDao.findById(schedule.getDestinationAirport().getAirportCode()).get();
+			s.setDestinationAirport(dst);
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss");
+		String datetime = "1970-01-01T00:00:00";
+		LocalDateTime formatted = LocalDateTime.parse(datetime, formatter);
+		if (schedule.getArrivalTime().compareTo(formatted)!=0) {
+			s.setArrivalTime(schedule.getArrivalTime());
+		}
+		if (schedule.getArrivalTime().compareTo(formatted)!=0) {
+			s.setDepartureTime(schedule.getDepartureTime());
+		}
+		return scheduleDao.save(s);
 	}
 
 	@Override
 	public void validateSchedule(Schedule schedule) {
-		// TODO Auto-generated method stub
+		//arrival & departure date time > current date time 
+		if(schedule.getArrivalTime().compareTo(LocalDateTime.now())<0 || 
+			schedule.getDepartureTime().compareTo(LocalDateTime.now())<0 )
+		{
+			throw new InvalidScheduleException("Date time entered has already elapsed");
+		}
+				
+		//arrival > departure date time
+		if (schedule.getArrivalTime().compareTo(schedule.getDepartureTime())<0)
+		{
+			throw new InvalidScheduleException("Arrival time should be greater than the departure time");
+		}
+		//Destination & source airport should be there in the database
+		List<Airport> a1 = airportDao.findAll();
+		if(a1.stream().noneMatch(a -> a.getAirportCode().equals(schedule.getSourceAirport().getAirportCode())) || 
+				a1.stream().noneMatch(a -> a.getAirportCode().equals(schedule.getDestinationAirport().getAirportCode())))
+		{
+			throw new InvalidScheduleException("Airport does not exist in the database");
+		}
+				
+		//Destination & source airport should not be same
+		if (schedule.getDestinationAirport().getAirportCode().equals(schedule.getSourceAirport().getAirportCode())) 
+		{
+			throw new InvalidScheduleException("Destination airport should not be same as source airport");
+		}
 
 	}
 

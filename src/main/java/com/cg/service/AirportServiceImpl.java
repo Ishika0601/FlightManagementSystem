@@ -48,7 +48,7 @@ public class AirportServiceImpl implements AirportService {
 	@Override
 	public List<Airport> viewAirportByLocation(String location) {
 		List<Airport> a = airportDao.findByAirportLocation(location);
-		if (a==null) {
+		if (a.size()==0) {
 			
 			//throw exception if no airport found
 			throw new AirportNotFoundException("No airport found with location "+location);

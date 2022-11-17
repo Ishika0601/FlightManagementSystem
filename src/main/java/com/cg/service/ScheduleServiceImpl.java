@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.bean.Schedule;
 import com.cg.dao.ScheduleDao;
@@ -35,49 +36,87 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public List<Schedule> viewScheduleBySourceName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Schedule> s = scheduleDao.findBySourceAirportAirportName(name);
+		if (s.size()==0) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found for source "+name);
+		}
+		return s;
 	}
 
 	@Override
 	public List<Schedule> viewScheduleByDestinationName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Schedule> s = scheduleDao.findByDestinationAirportAirportName(name);
+		if (s.size()==0) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found for destination "+name);
+		}
+		return s;
 	}
 
 	@Override
 	public List<Schedule> viewScheduleByArrivalTime(LocalDateTime arrival) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Schedule> s = scheduleDao.findByArrivalTime(arrival);
+		if (s.size()==0) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found for arrival time "+arrival);
+		}
+		return s;
 	}
 
 	@Override
 	public List<Schedule> viewScheduleByDepartureTime(LocalDateTime departure) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Schedule> s = scheduleDao.findByDepartureTime(departure);
+		if (s.size()==0) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found for departure time "+departure);
+		}
+		return s;
 	}
-
+	
+	@Transactional
 	@Override
 	public Schedule addSchedule(Schedule schedule) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return scheduleDao.save(schedule);
 	}
-
+	
+	@Transactional
 	@Override
 	public Schedule modifySchedule(BigInteger sid, Schedule schedule) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Schedule> sop = scheduleDao.findById(sid);
+		if (sop.isEmpty()) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found with id "+sid);
+		}
+		Schedule s = sop.get();
+		s.setSourceAirport(schedule.getSourceAirport());
+		s.setDestinationAirport(schedule.getDestinationAirport());
+		s.setArrivalTime(schedule.getArrivalTime());
+		s.setDepartureTime(schedule.getDepartureTime());
+		return scheduleDao.save(s);
 	}
 
+	@Transactional
 	@Override
 	public void deleteSchedule(BigInteger sid) {
-		// TODO Auto-generated method stub
-
+		Optional<Schedule> sop = scheduleDao.findById(sid);
+		if (sop.isEmpty()) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found with id "+sid);
+		}
+		scheduleDao.deleteById(sid);
 	}
 
+	@Transactional
 	@Override
 	public Schedule patchSchedule(BigInteger sid, Schedule schedule) {
-		// TODO Auto-generated method stub
+		Optional<Schedule> sop = scheduleDao.findById(sid);
+		if (sop.isEmpty()) {
+			//throw exception if no schedule is found
+			throw new ScheduleNotFoundException("No schedule found with id "+sid);
+		}
+		Schedule s = sop.get();
 		return null;
 	}
 

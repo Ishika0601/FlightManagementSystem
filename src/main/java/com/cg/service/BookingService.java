@@ -11,7 +11,7 @@ public interface BookingService
 	public Booking addBooking(Booking booking);
 	
 	//modify a booking
-	public Booking modifyBooking(Booking booking);
+	public Booking modifyBooking(BigInteger id,Booking booking);
 	
 	//view booking by booking id
 	public Booking viewBooking(BigInteger id);
@@ -27,4 +27,13 @@ public interface BookingService
 	
 	//validate passenger
 	public void validatePassenger(Passenger passenger);
+	
+	//patch Booking
+	public Booking patchBooking(BigInteger id,Booking booking); 
+	
+	//view Booking by scheduledFlight id
+	public List<Booking> viewBookingBySfid(BigInteger sfid);
+	
+	//validate patch booking
+	public void validatePatchBooking(Booking booking);
 }

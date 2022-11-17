@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.cg.bean.Schedule;
 import com.cg.bean.ScheduledFlight;
 
 
@@ -20,7 +19,7 @@ public interface ScheduledFlightService {
 	public List<ScheduledFlight> viewScheduledFlight();
 	
 	//modify a scheduled flight
-	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight);
+	public ScheduledFlight modifyScheduledFlight(BigInteger sfid,ScheduledFlight scheduledFlight);
 	
 	//delete a scheduled flight
 	public void deleteScheduledFlight(BigInteger sfid);

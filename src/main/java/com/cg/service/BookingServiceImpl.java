@@ -56,8 +56,8 @@ public class BookingServiceImpl implements BookingService
 
 	@Transactional
 	@Override
-	public Booking modifyBooking(Booking booking) {
-		Optional<Booking> opbook = bookingDao.findById(booking.getBookingId());
+	public Booking modifyBooking(BigInteger id,Booking booking) {
+		Optional<Booking> opbook = bookingDao.findById(id);
 		if(opbook.isEmpty())
 		{
 			//throw exception if no booking found
@@ -187,8 +187,53 @@ public class BookingServiceImpl implements BookingService
 		if(!m.find())
 		{
 			throw new InvalidBookingException("Passenger UIN is invalid");
+		}	
+	}
+	
+	@Override
+	@Transactional
+	public Booking patchBooking(BigInteger id,Booking booking)
+	{
+		Optional<Booking> opbook = bookingDao.findById(id);
+		if(opbook.isEmpty())
+		{
+			//throw exception if no booking found
+			throw new BookingNotFoundException("No booking found for booking id : "+booking.getBookingId());
 		}
-		
-		
+		Booking b = opbook.get();
+		if(booking.getNoOfPassengers()!=0)
+		{
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			String formatDateTime = LocalDateTime.now().format(formatter); 
+			LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
+			b.setBookingDate(bookingDate);
+			b.setPassengerList(booking.getPassengerList());
+			//change available seats after modifying booking
+			int diff = booking.getNoOfPassengers() - b.getNoOfPassengers();
+			ScheduledFlight sf = scheduledFlightDao.findById(b.getFlight().getSfid()).get();
+			sf.setAvailableSeats(sf.getAvailableSeats()-diff);
+			b.setNoOfPassengers(booking.getNoOfPassengers());
+			b.setTicketCost(b.getNoOfPassengers());
+			
+		}
+		return bookingDao.save(b);
+	}
+	
+	@Override
+	public List<Booking> viewBookingBySfid(BigInteger sfid)
+	{
+		List<Booking> b = bookingDao.findByFlightSfid(sfid);
+		return b;
+	}
+	
+	@Override
+	public void validatePatchBooking(Booking booking) {
+		int nop = booking.getNoOfPassengers();
+		int availableSeats = scheduledFlightDao.findById(booking.getFlight().getSfid()).get().getAvailableSeats();
+		//no of passengers should be <= 4 & available seats
+		if(nop > availableSeats || nop>4 || nop<1 || nop!=booking.getPassengerList().size())
+		{
+			throw new InvalidBookingException("Number of passengers are invalid");
+		}
 	}
 }

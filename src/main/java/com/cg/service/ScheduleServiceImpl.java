@@ -149,19 +149,25 @@ public class ScheduleServiceImpl implements ScheduleService {
 		Schedule s = sop.get();
 		if (schedule.getSourceAirport().getAirportCode()!=BigInteger.valueOf(0)) {
 			Airport src = airportDao.findById(schedule.getSourceAirport().getAirportCode()).get();
+			if (src==null) {
+				throw new InvalidScheduleException("Airport does not exist in the database");
+			}
 			s.setSourceAirport(src);
 		}
 		if (schedule.getDestinationAirport().getAirportCode()!=BigInteger.valueOf(0)) {
 			Airport dst = airportDao.findById(schedule.getDestinationAirport().getAirportCode()).get();
+			if (dst==null) {
+				throw new InvalidScheduleException("Airport does not exist in the database");
+			}
 			s.setDestinationAirport(dst);
 		}
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String datetime = "1970-01-01T00:00:00";
 		LocalDateTime formatted = LocalDateTime.parse(datetime, formatter);
 		if (schedule.getArrivalTime().compareTo(formatted)!=0) {
 			s.setArrivalTime(schedule.getArrivalTime());
 		}
-		if (schedule.getArrivalTime().compareTo(formatted)!=0) {
+		if (schedule.getDepartureTime().compareTo(formatted)!=0) {
 			s.setDepartureTime(schedule.getDepartureTime());
 		}
 		validateSchedule(s);

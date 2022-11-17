@@ -69,6 +69,7 @@ public class ScheduleController {
 	
 	@PutMapping("/modifySchedule/{sid}")
 	public Schedule modifySchedule(@PathVariable BigInteger sid, @RequestBody Schedule schedule) {
+		scheduleService.validateSchedule(schedule);
 		return scheduleService.modifySchedule(sid, schedule);
 	}
 	

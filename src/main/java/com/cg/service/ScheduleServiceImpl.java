@@ -145,6 +145,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public void validateSchedule(Schedule schedule) {
+		
 		//arrival & departure date time > current date time 
 		if(schedule.getArrivalTime().compareTo(LocalDateTime.now())<0 || 
 			schedule.getDepartureTime().compareTo(LocalDateTime.now())<0 )

@@ -42,7 +42,7 @@ public class BookingServiceImpl implements BookingService
 	@Override
 	public Booking addBooking(Booking booking) {	
 		//Booking date time set to system date time
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatDateTime = LocalDateTime.now().format(formatter); 
 		LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
 		booking.setBookingDate(bookingDate);
@@ -65,7 +65,7 @@ public class BookingServiceImpl implements BookingService
 		}
 		Booking b = opbook.get();
 		//Booking date time set to system date time
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatDateTime = LocalDateTime.now().format(formatter); 
 		LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
 		booking.setBookingDate(bookingDate);
@@ -203,7 +203,7 @@ public class BookingServiceImpl implements BookingService
 		Booking b = opbook.get();
 		if(booking.getNoOfPassengers()!=0)
 		{
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 			String formatDateTime = LocalDateTime.now().format(formatter); 
 			LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
 			b.setBookingDate(bookingDate);

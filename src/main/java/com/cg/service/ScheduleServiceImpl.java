@@ -140,6 +140,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if (schedule.getArrivalTime().compareTo(formatted)!=0) {
 			s.setDepartureTime(schedule.getDepartureTime());
 		}
+		validateSchedule(s);
 		return scheduleDao.save(s);
 	}
 

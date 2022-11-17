@@ -3,6 +3,7 @@ package com.cg.service;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.cg.bean.Airport;
+import com.cg.bean.Flight;
 import com.cg.bean.Schedule;
 import com.cg.bean.ScheduledFlight;
 import com.cg.dao.AirportDao;
@@ -17,6 +19,7 @@ import com.cg.dao.FlightDao;
 import com.cg.dao.ScheduleDao;
 import com.cg.dao.ScheduledFlightDao;
 import com.cg.exception.InvalidScheduledFlightException;
+import com.cg.exception.ScheduleNotFoundException;
 import com.cg.exception.ScheduledFlightNotFoundException;
 
 
@@ -141,6 +144,27 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 			throw new InvalidScheduledFlightException("Destination airport should not be same as source airport");
 		}
 		
+	}
+	
+	@Transactional
+	@Override
+	public ScheduledFlight patchScheduledFlight(BigInteger sfid, ScheduledFlight scheduledFlight) {
+		Optional<ScheduledFlight> sop = scheduledFlightDao.findById(sfid);
+		if (sop.isEmpty()) {
+			//throw exception if no scheduled is found
+			throw new ScheduledFlightNotFoundException("No schedule flight found with id "+sfid);
+		}
+		
+		ScheduledFlight s = sop.get();
+		if (scheduledFlight.getFlight().getFlightNumber() != BigInteger.valueOf(0)) {
+			Flight f = flightDao.findById(scheduledFlight.getFlight().getFlightNumber()).get();
+			s.setFlight(f);
+		}
+		if (scheduledFlight.getAvailableSeats()!=0) {
+			s.setAvailableSeats(scheduledFlight.getAvailableSeats());
+		}
+		
+		return scheduledFlightDao.save(s);
 	}
 	
 }

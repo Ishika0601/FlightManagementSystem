@@ -3,6 +3,8 @@ package com.cg.service;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.cg.bean.Schedule;
 import com.cg.bean.ScheduledFlight;
 
 
@@ -28,4 +30,7 @@ public interface ScheduledFlightService {
 	
 	//view all scheduled flights between two airports on a certain date
 	public List<ScheduledFlight> viewScheduledFlights(String src, String dst, LocalDate date);
+	
+	//patch a scheduled flight
+	public ScheduledFlight patchScheduledFlight(BigInteger sfid, ScheduledFlight scheduledFlight);
 }

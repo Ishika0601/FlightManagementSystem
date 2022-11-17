@@ -88,6 +88,30 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		
 	}
 
+
+	@Override
+	public List<ScheduledFlight> viewScheduledFlights(String src, String dst, LocalDate date) {
+		List<ScheduledFlight> sf1 = scheduledFlightDao.findAll();
+		List<ScheduledFlight> sf2 = new ArrayList<>();
+		
+		for(ScheduledFlight s : sf1)
+		{
+			if(s.getSchedule().getSourceAirport().getAirportLocation().equals(src) && 
+					s.getSchedule().getDestinationAirport().getAirportLocation().equals(dst) && 
+					date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0
+					&& s.getAvailableSeats()!=0)
+			{
+				//add scheduled flight in the list if it is between the given airports & available seats !=0
+				sf2.add(s);
+			}
+		}
+		if (sf2.size()==0) {
+			//throw exception if not scheduled flight found
+			throw new ScheduledFlightNotFoundException("No flight found between "+src+" and "+dst+" on "+date);
+		}
+		return sf2;
+	}
+	
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		
@@ -112,34 +136,11 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		}
 		
 		//Destination & source airport should not be same
-		if (scft.getSchedule().getDestinationAirport().equals(scft.getSchedule().getSourceAirport())) 
+		if (scft.getSchedule().getDestinationAirport().getAirportCode().equals(scft.getSchedule().getSourceAirport().getAirportCode())) 
 		{
 			throw new InvalidScheduledFlightException("Destination airport should not be same as source airport");
 		}
 		
-	}
-
-	@Override
-	public List<ScheduledFlight> viewScheduledFlights(String src, String dst, LocalDate date) {
-		List<ScheduledFlight> sf1 = scheduledFlightDao.findAll();
-		List<ScheduledFlight> sf2 = new ArrayList<>();
-		
-		for(ScheduledFlight s : sf1)
-		{
-			if(s.getSchedule().getSourceAirport().getAirportLocation().equals(src) && 
-					s.getSchedule().getDestinationAirport().getAirportLocation().equals(dst) && 
-					date.compareTo(s.getSchedule().getDepartureTime().toLocalDate())==0
-					&& s.getAvailableSeats()!=0)
-			{
-				//add scheduled flight in the list if it is between the given airports & available seats !=0
-				sf2.add(s);
-			}
-		}
-		if (sf2.size()==0) {
-			//throw exception if not scheduled flight found
-			throw new ScheduledFlightNotFoundException("No flight found between "+src+" and "+dst+" on "+date);
-		}
-		return sf2;
 	}
 	
 }

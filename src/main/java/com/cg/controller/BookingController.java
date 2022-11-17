@@ -72,6 +72,7 @@ public class BookingController
 	 URI : http://localhost:9001/booking/deleteBooking/1000
 	 METHOD : DELETE
 	 */
+	
 	@DeleteMapping("/deleteBooking/{bookingId}")
 	public void deleteBooking(@PathVariable BigInteger bookingId)
 	{

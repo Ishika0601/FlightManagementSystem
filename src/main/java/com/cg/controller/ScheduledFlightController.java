@@ -7,12 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cg.bean.Airport;
 import com.cg.bean.ScheduledFlight;
 import com.cg.service.ScheduledFlightService;
 
@@ -87,6 +90,11 @@ public class ScheduledFlightController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = LocalDate.parse(date, formatter);
 		return scheduledFlightService.viewScheduledFlights(src,dsc,localDate);
+	}
+	
+	@PatchMapping("/patchScheduledFlight/{code}")
+	public ScheduledFlight patchScheduledFlight(@PathVariable BigInteger code, @RequestBody ScheduledFlight scheduledFlight) {
+		return scheduledFlightService.patchScheduledFlight(code, scheduledFlight);
 	}
 	
 	

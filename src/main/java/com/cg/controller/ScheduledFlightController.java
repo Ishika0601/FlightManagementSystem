@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.bean.Airport;
 import com.cg.bean.ScheduledFlight;
 import com.cg.service.ScheduledFlightService;
 
@@ -62,11 +61,11 @@ public class ScheduledFlightController {
 	 URI : http://localhost:9001/scheduledflight/modifySchFlight
 	 METHOD : PUT
 	 */
-	@PutMapping("/modifySchFlight")
-	public ScheduledFlight modifySchFlight(@RequestBody ScheduledFlight newScheduledFlight)
+	@PutMapping("/modifySchFlight/{sfid}")
+	public ScheduledFlight modifySchFlight(@PathVariable BigInteger sfid,@RequestBody ScheduledFlight newScheduledFlight)
 	{
 		scheduledFlightService.validateScheduledFlight(newScheduledFlight);
-		return scheduledFlightService.modifyScheduledFlight(newScheduledFlight);
+		return scheduledFlightService.modifyScheduledFlight(sfid,newScheduledFlight);
 	}
 	
 	/*

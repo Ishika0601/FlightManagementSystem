@@ -44,9 +44,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	
 	@Transactional
 	@Override
-	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight) {
+	public ScheduledFlight modifyScheduledFlight(BigInteger sfid,ScheduledFlight scheduledFlight) {
 
-		Optional<ScheduledFlight> optsf = scheduledFlightDao.findById(scheduledFlight.getSfid());	
+		Optional<ScheduledFlight> optsf = scheduledFlightDao.findById(sfid);	
 		if(optsf.isEmpty())
 		{
 			//throw exception if scheduled flight not found

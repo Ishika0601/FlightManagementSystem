@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.bean.Booking;
+import com.cg.exception.InvalidBookingException;
 import com.cg.service.BookingService;
 
 @RestController
@@ -21,6 +23,7 @@ public class BookingController
 
 	@Autowired
 	BookingService bookingService;
+
 	
 	/*
 	 * 
@@ -58,11 +61,11 @@ public class BookingController
 	 URI : http://localhost:9001/booking/modifyBooking
 	 METHOD : PUT
 	 */
-	@PutMapping("/modifyBooking")
-	public Booking updateBooking(@RequestBody Booking updateBooking)
+	@PutMapping("/modifyBooking/{bookingId}")
+	public Booking updateBooking(@PathVariable BigInteger bookingId,@RequestBody Booking updateBooking)
 	{
 		bookingService.validateBooking(updateBooking);
-		return bookingService.modifyBooking(updateBooking);
+		return bookingService.modifyBooking(bookingId,updateBooking);
 	}
 	
 	/*
@@ -75,6 +78,18 @@ public class BookingController
 		bookingService.deleteBooking(bookingId);
 	}
 	
+	@GetMapping("/showBySfid/{sfid}")
+	public List<Booking> showBySfid(@PathVariable BigInteger sfid)
+	{
+		return bookingService.viewBookingBySfid(sfid);
+	}
+	
+	@PatchMapping("/patchBooking/{bookingId}")
+	public Booking patchBooking(@PathVariable BigInteger bookingId,@RequestBody Booking booking)
+	{
+		bookingService.validatePatchBooking(booking);
+		return bookingService.modifyBooking(bookingId,booking);
+	}
 }
 
 

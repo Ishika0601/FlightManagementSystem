@@ -19,7 +19,7 @@ public interface ScheduledFlightService {
 	public List<ScheduledFlight> viewScheduledFlight();
 	
 	//modify a scheduled flight
-	public ScheduledFlight modifyScheduledFlight(BigInteger sfid,ScheduledFlight scheduledFlight);
+	public ScheduledFlight modifyScheduledFlight(BigInteger sfid, ScheduledFlight scheduledFlight);
 	
 	//delete a scheduled flight
 	public void deleteScheduledFlight(BigInteger sfid);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -69,11 +70,11 @@ public class FlightController {
   		"seatCapacity": 120
 	}
 	 */
-	@PutMapping("/modifyFlight")
-	public Flight modifyFlight(@RequestBody Flight  modifyFlight )
+	@PutMapping("/modifyFlight/{fno}")
+	public Flight modifyFlight(@PathVariable BigInteger fno, @RequestBody Flight  modifyFlight)
 	{
 		flightService.validateFlight(modifyFlight);
-		return flightService.modifyFlight(modifyFlight);
+		return flightService.modifyFlight(fno, modifyFlight);
 	}
 	
 	/*
@@ -84,6 +85,18 @@ public class FlightController {
 	public void deleteFlight(@PathVariable BigInteger fno)
 	{
 		flightService.deleteFlight(fno);
-	} 
+	}
+	
+	@GetMapping("/showByCarrierName/{CarrierName}")
+	public List<Flight> showByCarrierName(@PathVariable String CarrierName) 
+	{
+		return flightService.viewFlightByCarrierName(CarrierName);
+	}
+	
+	@PatchMapping("/patchFlight/{fno}")
+	public Flight patchFlight(@PathVariable BigInteger fno, @RequestBody Flight  modifyFlight)
+	{
+		return flightService.modifyFlight(fno, modifyFlight);
+	}
 	
 }

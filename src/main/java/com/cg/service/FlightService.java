@@ -11,7 +11,7 @@ public interface FlightService {
 	public Flight addFlight(Flight flight);
 	
 	//modify a flight
-	public Flight modifyFlight(Flight flight);
+	public Flight modifyFlight(BigInteger fno, Flight flight);
 	
 	//view flight by flight number
 	public Flight viewFlight(BigInteger fn);
@@ -24,5 +24,11 @@ public interface FlightService {
 	
 	//validate flight
 	void validateFlight(Flight flight);
+	
+	//view all flights by carrier name
+	public List<Flight> viewFlightByCarrierName(String cname);
+	
+	//patch a flight
+	public Flight patchFlight(BigInteger fno, Flight flight);
 
 }

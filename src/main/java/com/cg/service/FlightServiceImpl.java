@@ -26,8 +26,8 @@ public class FlightServiceImpl implements FlightService {
 	
 	@Transactional
 	@Override
-	public Flight modifyFlight(Flight flight) { 
-		Optional<Flight> flt = flightDao.findById(flight.getFlightNumber());		
+	public Flight modifyFlight(BigInteger fno, Flight flight) { 
+		Optional<Flight> flt = flightDao.findById(fno);		
 		if(flt.isEmpty())
 		{
 			//throw exception if flight not found
@@ -80,6 +80,33 @@ public class FlightServiceImpl implements FlightService {
     		throw new InvalidFlightException("Flight number not entered properly");
     	}		
 	
+	}
+
+	@Override
+	public List<Flight> viewFlightByCarrierName(String cname) {
+		List<Flight> fl = flightDao.findByCarrierName(cname);
+		if(fl.size()==0)
+		{
+			//throw exception if flight not found
+			throw new FlightNotFoundException("No flight found with carrier name "+cname);
+		}
+		return fl;
+	}
+
+	@Transactional
+	@Override
+	public Flight patchFlight(BigInteger fno, Flight flight) {
+		Optional<Flight> fc = flightDao.findById(fno);
+		if (fc.isEmpty()) {
+			
+			//throw exception if no flight found
+			throw new FlightNotFoundException("No flight found with flight number "+fno);
+		}
+		Flight fp = fc.get();
+		if (!flight.getCarrierName().equals("empty")) {
+			fp.setCarrierName(flight.getCarrierName());
+		}
+		return flightDao.save(fp);
 	}	
 	
 }

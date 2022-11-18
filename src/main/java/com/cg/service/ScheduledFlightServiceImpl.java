@@ -41,23 +41,6 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	public ScheduledFlight scheduleFlight(ScheduledFlight scheduledFlight) {
 		return scheduledFlightDao.save(scheduledFlight);
 	}
-	
-	@Transactional
-	@Override
-	public ScheduledFlight modifyScheduledFlight(BigInteger sfid,ScheduledFlight scheduledFlight) {
-
-		Optional<ScheduledFlight> optsf = scheduledFlightDao.findById(sfid);	
-		if(optsf.isEmpty())
-		{
-			//throw exception if scheduled flight not found
-			throw new ScheduledFlightNotFoundException("No scheduled flight found");
-		}
-		ScheduledFlight b = optsf.get();
-		
-		b.setAvailableSeats(scheduledFlight.getAvailableSeats());
-		b.setSchedule(scheduledFlight.getSchedule());
-		return scheduledFlightDao.save(b);
-	}
  
 	
 	@Override
@@ -145,7 +128,23 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		}
 		
 	}
-	
+
+	@Transactional
+	@Override
+	public ScheduledFlight modifyScheduledFlight(BigInteger sfid, ScheduledFlight scheduledFlight) {
+		Optional<ScheduledFlight> optsf = scheduledFlightDao.findById(sfid);	
+		if(optsf.isEmpty())
+		{
+			//throw exception if scheduled flight not found
+			throw new ScheduledFlightNotFoundException("No scheduled flight found");
+		}
+		ScheduledFlight b = optsf.get();
+		
+		b.setAvailableSeats(scheduledFlight.getAvailableSeats());
+		b.setSchedule(scheduledFlight.getSchedule());
+		return scheduledFlightDao.save(b);
+	}
+
 	@Transactional
 	@Override
 	public ScheduledFlight patchScheduledFlight(BigInteger sfid, ScheduledFlight scheduledFlight) {
@@ -165,6 +164,9 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		}
 		
 		return scheduledFlightDao.save(s);
+
 	}
+	
+	
 	
 }

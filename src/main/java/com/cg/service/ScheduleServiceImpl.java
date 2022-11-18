@@ -75,7 +75,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 				s2.add(s);
 			}
 		}
-		if (s2.size()==0) {
+		if (s2.size()==0) 
+		{
 			
 			//throw exception if no schedule found
 			throw new ScheduleNotFoundException("No schedule found for "+arrival);

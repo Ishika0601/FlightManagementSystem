@@ -117,7 +117,7 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public User viewByEmail(String Email) {
-        User e = userDao.findByUserName(Email);
+        User e = userDao.findByEmail(Email);
         if (e==null) {
 
             //throw exception if no airport found
@@ -127,7 +127,7 @@ public class UserServiceImpl implements  UserService{
     }
     @Transactional
     @Override
-    public User patchUser(User user,BigInteger code) {
+    public User patchUser(BigInteger code,User user) {
         Optional<User> a = userDao.findById(code);
         if (a.isEmpty()) {
 

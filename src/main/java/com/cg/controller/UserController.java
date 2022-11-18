@@ -97,9 +97,9 @@ public class UserController {
         return  u;
 
     }
-    @PatchMapping("/patchUser/{Id}")
+    @PatchMapping("/patchUser/{id}")
     public User patchUser(@PathVariable BigInteger id ,@RequestBody User u){
-        return userService.patchUser(u,id);
+        return userService.patchUser(id,u);
 
     }
     

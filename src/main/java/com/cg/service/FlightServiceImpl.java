@@ -71,16 +71,6 @@ public class FlightServiceImpl implements FlightService {
 	    flightDao.deleteById(fn);
 		
 	}
-	
-    @Override
-	public void validateFlight(Flight flight) {
-		
-    	//flight number should not be null and should be a big integer
-    	if(flight.getFlightNumber()==null || !flight.getFlightNumber().getClass().getSimpleName().equals("BigInteger")){
-    		throw new InvalidFlightException("Flight number not entered properly");
-    	}		
-	
-	}
 
 	@Override
 	public List<Flight> viewFlightByCarrierName(String cname) {
@@ -103,8 +93,8 @@ public class FlightServiceImpl implements FlightService {
 			throw new FlightNotFoundException("No flight found with flight number "+fno);
 		}
 		Flight fp = fc.get();
-		if (!flight.getCarrierName().equals("empty")) {
-			fp.setCarrierName(flight.getCarrierName());
+		if (flight.getSeatCapacity()!=0) {
+			fp.setSeatCapacity(flight.getSeatCapacity());
 		}
 		return flightDao.save(fp);
 	}	

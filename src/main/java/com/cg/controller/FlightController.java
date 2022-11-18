@@ -46,7 +46,6 @@ public class FlightController {
 	 */
 	@PostMapping ("/addFlight")
 	public Flight addFlight(@RequestBody Flight newFlight) {
-		flightService.validateFlight(newFlight);
 		return flightService.addFlight(newFlight);
 	}
 	
@@ -73,7 +72,6 @@ public class FlightController {
 	@PutMapping("/modifyFlight/{fno}")
 	public Flight modifyFlight(@PathVariable BigInteger fno, @RequestBody Flight  modifyFlight)
 	{
-		flightService.validateFlight(modifyFlight);
 		return flightService.modifyFlight(fno, modifyFlight);
 	}
 	
@@ -96,7 +94,7 @@ public class FlightController {
 	@PatchMapping("/patchFlight/{fno}")
 	public Flight patchFlight(@PathVariable BigInteger fno, @RequestBody Flight  modifyFlight)
 	{
-		return flightService.modifyFlight(fno, modifyFlight);
+		return flightService.patchFlight(fno, modifyFlight);
 	}
 	
 }

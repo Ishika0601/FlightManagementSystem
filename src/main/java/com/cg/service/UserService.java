@@ -27,5 +27,5 @@ public interface UserService {
     public User viewByUserName(String Name);
 
     public  User viewByEmail(String Email);
-    public User patchUser(User newAccount, BigInteger userId);
+    public User patchUser(BigInteger userId,User newAccount);
 }

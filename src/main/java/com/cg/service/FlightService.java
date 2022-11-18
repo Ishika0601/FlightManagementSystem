@@ -22,9 +22,6 @@ public interface FlightService {
 	//delete flight by flight number
 	void deleteFlight(BigInteger fn);
 	
-	//validate flight
-	void validateFlight(Flight flight);
-	
 	//view all flights by carrier name
 	public List<Flight> viewFlightByCarrierName(String cname);
 	

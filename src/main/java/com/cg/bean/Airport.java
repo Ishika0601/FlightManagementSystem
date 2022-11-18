@@ -4,12 +4,17 @@ import java.math.BigInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Airport {
 	
 	@Id
+	@SequenceGenerator(name="sequence7", initialValue=107)			//Sequence generated from 100 auto increment by 1
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence7")
 	@Column(name="code")
 	BigInteger airportCode;
 

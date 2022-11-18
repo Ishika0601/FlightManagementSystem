@@ -10,7 +10,7 @@ public interface UserService {
     public  User addUser(User u);
     
     //update user based on user id
-    public User updateUser(User newAccount, BigInteger userId);
+    public User updateUser(BigInteger userId,User newAccount);
     
     //delete user
     public void deleteUser(BigInteger userId);

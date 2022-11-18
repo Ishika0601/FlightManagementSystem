@@ -30,7 +30,7 @@ public class UserServiceImpl implements  UserService{
 
     @Transactional
     @Override
-    public User updateUser(User newAccount, BigInteger userId) {
+    public User updateUser(BigInteger userId, User newAccount) {
         Optional<User> optus=userDao.findById(userId); 
         if(optus.isEmpty()){
         	//throw exception if no user found

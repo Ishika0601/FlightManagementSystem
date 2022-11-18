@@ -68,10 +68,10 @@ public class UserController {
 	}
      */
     @PutMapping("/modifyUser/{userId}")
-    public User updateUser(@RequestBody User newU,@PathVariable BigInteger userId){
+    public User updateUser(@PathVariable BigInteger userId, @RequestBody User newU){
     	
     	userService.validateUser(newU);
-        return userService.updateUser(newU,userId);
+        return userService.updateUser(userId,newU);
     }
     
     /*

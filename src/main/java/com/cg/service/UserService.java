@@ -23,4 +23,9 @@ public interface UserService {
     
     //validate user
     public void validateUser(User user);
+
+    public User viewByUserName(String Name);
+
+    public  User viewByEmail(String Email);
+    public User patchUser(User newAccount, BigInteger userId);
 }

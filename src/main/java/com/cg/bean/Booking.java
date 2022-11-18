@@ -35,8 +35,8 @@ public class Booking
 	User user;
 	
 	//specify how to format datetime acc to SimpleDateTime format
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = Shape.STRING)
-	@ApiModelProperty(required = true, example = "2021-08-20 00:00:00")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", shape = Shape.STRING)
+	@ApiModelProperty(required = true, example = "2021-08-20T00:00:00")
 	@Column(name="date")
 	LocalDateTime bookingDate;
 	

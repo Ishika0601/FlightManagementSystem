@@ -1,7 +1,7 @@
 package com.cg.service;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.bean.Schedule;
@@ -20,11 +20,11 @@ public interface ScheduleService {
 	//view schedule by destination airport name
 	public List<Schedule> viewScheduleByDestinationName(String name);
 	
-	//view schedule by arrival time
-	public List<Schedule> viewScheduleByArrivalTime(LocalDateTime arrival);
+	//view schedule by arrival date
+	public List<Schedule> viewScheduleByArrivalDate(LocalDate arrival);
 	
-	//view schedule by departure time
-	public List<Schedule> viewScheduleByDepartureTime(LocalDateTime departure);
+	//view schedule by departure date
+	public List<Schedule> viewScheduleByDepartureDate(LocalDate departure);
 		
 	//add schedule
 	public Schedule addSchedule(Schedule schedule);

@@ -1,7 +1,6 @@
 package com.cg.dao;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,8 +12,5 @@ public interface ScheduleDao extends JpaRepository<Schedule, BigInteger>{
 	
 	public List<Schedule> findByDestinationAirportAirportName(String name);
 	
-	public List<Schedule> findByArrivalTime(LocalDateTime arrival);
-	
-	public List<Schedule> findByDepartureTime(LocalDateTime departure);
 }
   

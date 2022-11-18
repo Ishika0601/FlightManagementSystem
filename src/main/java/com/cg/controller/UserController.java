@@ -23,6 +23,9 @@ public class UserController {
         List<User> list =userService.viewUser();
         return  list;
     }
+//    @GetMapping("/showByuserName/{userName}")
+//    public
+
     
     /*
      URI : http://localhost:9001/user/addUser
@@ -80,7 +83,25 @@ public class UserController {
     	
         userService.deleteUser(new BigInteger(userId));
     }
-    
+    @GetMapping("/showByUserName/{Name}")
+    public User showByUserName(@PathVariable String Name){
+        User u =userService.viewByUserName(Name);
+
+        return  u;
+
+    }
+    @GetMapping("/showByEmail/{Email}")
+    public User showByEmail(@PathVariable String Email){
+        User u =userService.viewByEmail(Email);
+
+        return  u;
+
+    }
+    @PatchMapping("/patchUser/{Id}")
+    public User patchUser(@PathVariable BigInteger id ,@RequestBody User u){
+        return userService.patchUser(u,id);
+
+    }
     
  		
 }

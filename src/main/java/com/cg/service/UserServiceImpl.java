@@ -1,7 +1,9 @@
 package com.cg.service;
 
+import com.cg.bean.Airport;
 import com.cg.bean.User;
 import com.cg.dao.UserDao;
+import com.cg.exception.AirportNotFoundException;
 import com.cg.exception.InvalidUserException;
 import com.cg.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +101,58 @@ public class UserServiceImpl implements  UserService{
              throw new InvalidUserException("Phone number and email are invalid");
          }
         
+    }
+
+    @Override
+    public User viewByUserName(String Name) {
+        User u = userDao.findByUserName(Name);
+        if (u==null) {
+
+            //throw exception if no airport found
+            throw new UserNotFoundException("No username found with name "+Name);
+        }
+        return u;
+
+    }
+
+    @Override
+    public User viewByEmail(String Email) {
+        User e = userDao.findByUserName(Email);
+        if (e==null) {
+
+            //throw exception if no airport found
+            throw new UserNotFoundException("No username found with email "+Email);
+        }
+        return e;
+    }
+    @Transactional
+    @Override
+    public User patchUser(User user,BigInteger code) {
+        Optional<User> a = userDao.findById(code);
+        if (a.isEmpty()) {
+
+            //throw exception if no airport found
+            throw new UserNotFoundException("No user found with code "+code);
+        }
+        User ap = a.get();
+
+        if (!user.getUserType().equals("empty")) {
+            ap.setUserType(user.getUserType());
+        }
+        if (!user.getUserName().equals("empty")) {
+            ap.setUserName(user.getUserName());
+        }
+        if (!user.getEmail().equals("empty")) {
+            ap.setEmail(user.getEmail());
+        }
+        if (!user.getUserPassword().equals("empty")) {
+            ap.setUserPassword(user.getUserPassword());
+        }
+        if (user.getUserPhone()!=BigInteger.valueOf(0)) {
+            ap.setUserPhone(user.getUserPhone());
+        }
+        validateUser(ap);
+        return userDao.save(ap);
     }
 
 }

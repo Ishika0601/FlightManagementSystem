@@ -40,7 +40,7 @@ public class PassengerController {
 	}
 	
 	@GetMapping("/showByPassengerUIN/{uin}")
-	public Passenger showByPassengeUIN(@PathVariable BigInteger uin) {
+	public List<Passenger> showByPassengeUIN(@PathVariable BigInteger uin) {
 		return passengerService.viewPassengerByUIN(uin);
 	}
 	

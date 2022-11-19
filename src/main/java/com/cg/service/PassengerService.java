@@ -17,7 +17,7 @@ public interface PassengerService {
 	public List<Passenger> viewPassengerByName(String name);
 		
 	//view passenger by passenger uin
-	public Passenger viewPassengerByUIN(BigInteger uin);
+	public List<Passenger> viewPassengerByUIN(BigInteger uin);
 		
 	//add passenger
 	public Passenger addPassenger(BigInteger bookingId, Passenger passenger);

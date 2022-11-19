@@ -60,8 +60,8 @@ public class PassengerServiceImpl implements PassengerService {
 	}
 
 	@Override
-	public Passenger viewPassengerByUIN(BigInteger uin) {
-		Passenger p = passengerDao.findByPassengerUIN(uin);
+	public List<Passenger> viewPassengerByUIN(BigInteger uin) {
+		List<Passenger> p = passengerDao.findByPassengerUIN(uin);
 		if (p==null) {
 			//throw exception if no passenger is found
 			throw new PassengerNotFoundException("No passenger found with uin "+uin);

@@ -11,5 +11,5 @@ public interface PassengerDao extends JpaRepository<Passenger, BigInteger> {
 	
 	public List<Passenger> findByPassengerName(String name);
 	
-	public Passenger findByPassengerUIN(BigInteger uin);
+	public List<Passenger> findByPassengerUIN(BigInteger uin);
 }

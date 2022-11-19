@@ -87,6 +87,20 @@ public class GlobalExceptionAdvice {
 		return e.getMessage();
 	}
 	
+	//Handler for Passenger Not Found Exception
+	@ExceptionHandler(PassengerNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	String passengerNotFoundHandler(PassengerNotFoundException e) {
+		return e.getMessage();
+	}
+			
+	//Handler for Invalid Passenger Exception
+	@ExceptionHandler(InvalidPassengerException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	String passengerInvalidHandler(InvalidPassengerException e) {
+		return e.getMessage();
+	}
+	
 	//Handler for all other exceptions
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

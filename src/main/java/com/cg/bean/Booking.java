@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -27,7 +29,6 @@ public class Booking
 	@Id
 	@SequenceGenerator(name="sequence1", initialValue=1000)			//Sequence generated from 1000 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence1")
-	@Column(name="id")
 	BigInteger bookingId;
 	
 	@ManyToOne
@@ -40,14 +41,15 @@ public class Booking
 	@Column(name="date")
 	LocalDateTime bookingDate;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="bookingId",nullable = false)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="booking_id")
 	List<Passenger> passengerList = new ArrayList<Passenger>();
 	
 	@Column(name="cost")
 	BigDecimal ticketCost;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "sfid", nullable = false)
 	ScheduledFlight flight;
 	
 	@Column(name="nop")

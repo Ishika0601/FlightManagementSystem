@@ -121,8 +121,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 			throw new ScheduleNotFoundException("No schedule found with id "+sid);
 		}
 		Schedule s = sop.get();
-		s.setSourceAirport(schedule.getSourceAirport());
-		s.setDestinationAirport(schedule.getDestinationAirport());
+		s.setSourceAirport(airportDao.findById(schedule.getSourceAirport().getAirportCode()).get());
+		s.setDestinationAirport(airportDao.findById(schedule.getDestinationAirport().getAirportCode()).get());
 		s.setArrivalTime(schedule.getArrivalTime());
 		s.setDepartureTime(schedule.getDepartureTime());
 		return scheduleDao.save(s);

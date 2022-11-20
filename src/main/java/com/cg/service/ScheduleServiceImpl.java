@@ -116,7 +116,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public Schedule modifySchedule(BigInteger sid, Schedule schedule) {
 		Optional<Schedule> sop = scheduleDao.findById(sid);
-		if (sop.isEmpty()) {
+		if (sop.isEmpty()) 
+		{
 			//throw exception if no schedule is found
 			throw new ScheduleNotFoundException("No schedule found with id "+sid);
 		}

@@ -141,7 +141,8 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		ScheduledFlight b = optsf.get();
 		
 		b.setAvailableSeats(scheduledFlight.getAvailableSeats());
-		b.setSchedule(scheduledFlight.getSchedule());
+		b.setSchedule(scheduleDao.findById(scheduledFlight.getSchedule().getSid()).get());
+		b.setFlight(flightDao.findById(scheduledFlight.getFlight().getFlightNumber()).get());
 		return scheduledFlightDao.save(b);
 	}
 

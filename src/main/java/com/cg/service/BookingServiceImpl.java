@@ -230,6 +230,7 @@ public class BookingServiceImpl implements BookingService
 			throw new ScheduledFlightNotFoundException("No scheduled flight found for schedule flight id : "+sfid);
 		}
 		List<Booking> b = bookingDao.findByFlightSfid(sfid);
+		
 		if(b.isEmpty())
 		{
 			throw new BookingNotFoundException("No booking found for scheduled flight id "+sfid);

@@ -101,8 +101,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
 		//available seats should be less than or equal to seat capacity and not less than 0
-		if (scft.getAvailableSeats() > scft.getFlight().getSeatCapacity() || scft.getAvailableSeats() < 0) 
-		{
+		if (scft.getAvailableSeats() > scft.getFlight().getSeatCapacity() || scft.getAvailableSeats() < 0) {
 			throw new InvalidScheduledFlightException("Available seats should be less than or equal to flight seat capacity and greater than or equal to 0");
 		}
 		//arrival & departure date time > current date time 

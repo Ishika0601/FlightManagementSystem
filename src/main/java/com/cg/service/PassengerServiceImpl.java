@@ -72,11 +72,12 @@ public class PassengerServiceImpl implements PassengerService {
 	@Transactional
 	@Override
 	public Passenger addPassenger(BigInteger bookingId, Passenger passenger) {
-		Booking b = bookingDao.findById(bookingId).get();
-		if (b==null) {
+		Optional<Booking> t = bookingDao.findById(bookingId);
+		if (t.isEmpty()) {
 			throw new BookingNotFoundException("No booking found with id "+bookingId);
 		}
-		b.getPassengerList().add(passenger);
+		t.get().getPassengerList().add(passenger);
+		Booking b= t.get();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatDateTime = LocalDateTime.now().format(formatter); 
 		LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
@@ -108,12 +109,12 @@ public class PassengerServiceImpl implements PassengerService {
 	@Transactional
 	@Override
 	public void deletePassenger(BigInteger pnrNumber) {
-		Passenger p = passengerDao.findById(pnrNumber).get();
-		if (p==null) {
+		Optional<Passenger> p = passengerDao.findById(pnrNumber);
+		if (p.isEmpty()) {
 			//throw exception if no passenger is found
 			throw new PassengerNotFoundException("No passenger found with number "+pnrNumber);
 		}
-		Booking b = p.getBooking();
+		Booking b = p.get().getBooking();
 		b.getPassengerList().remove(p);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatDateTime = LocalDateTime.now().format(formatter); 

@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -255,8 +256,26 @@ public class BookingServiceImpl implements BookingService
 		}
 	}
 	
-	public void sendEmail()
+	@Override
+	public void sendEmail(BigInteger id)
 	{
+		Optional<Booking> opbook = bookingDao.findById(id);
+		if(opbook.isEmpty())
+		{
+			//throw exception if no booking found
+			throw new BookingNotFoundException("No booking found for booking id : "+id);
+		}
+		Booking b = opbook.get();
+		String receiver = b.getUser().getEmail();
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		
+		mailMessage.setFrom(sender);
+		mailMessage.setTo(receiver);
+		
+		mailMessage.setSubject("Booking Confirmed!!!");
+		mailMessage.setText(b.toString());
+		
+		javaMailSender.send(mailMessage);
+		System.out.println("Mail sent succesfully!!!");
 	}
 }

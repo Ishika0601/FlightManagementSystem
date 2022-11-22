@@ -44,7 +44,10 @@ public class BookingController
 	public Booking addBooking(@RequestBody Booking newBooking)
 	{
 		bookingService.validateBooking(newBooking);
-		return bookingService.addBooking(newBooking);
+		Booking b = bookingService.addBooking(newBooking);
+		BigInteger id = b.getBookingId();
+		bookingService.sendEmail(id);
+		return b;
 	}
 	
 	/* 

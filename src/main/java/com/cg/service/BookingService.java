@@ -36,4 +36,7 @@ public interface BookingService
 	
 	//validate patch booking
 	public void validatePatchBooking(Booking booking);
+	
+	//sending Email
+	public void sendEmail(BigInteger id);
 }

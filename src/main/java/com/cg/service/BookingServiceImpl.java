@@ -65,6 +65,11 @@ public class BookingServiceImpl implements BookingService
 			throw new BookingNotFoundException("No booking found for booking id : "+booking.getBookingId());
 		}
 		Booking b = opbook.get();
+		//Booking date time set to system date time
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		String formatDateTime = LocalDateTime.now().format(formatter); 
+		LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
+		booking.setBookingDate(bookingDate);
 		b.setPassengerList(booking.getPassengerList());
 		booking.setTicketCost(booking.getNoOfPassengers());
 		//change available seats after modifying booking
@@ -199,6 +204,10 @@ public class BookingServiceImpl implements BookingService
 		Booking b = opbook.get();
 		if(booking.getNoOfPassengers()!=0)
 		{
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+			String formatDateTime = LocalDateTime.now().format(formatter); 
+			LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
+			b.setBookingDate(bookingDate);
 			b.setPassengerList(booking.getPassengerList());
 			//change available seats after modifying booking
 			int diff = booking.getNoOfPassengers() - b.getNoOfPassengers();

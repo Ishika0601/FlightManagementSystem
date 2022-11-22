@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.bean.Booking;
-import com.cg.exception.InvalidBookingException;
 import com.cg.service.BookingService;
 
 @RestController
@@ -45,8 +44,6 @@ public class BookingController
 	{
 		bookingService.validateBooking(newBooking);
 		Booking b = bookingService.addBooking(newBooking);
-		BigInteger id = b.getBookingId();
-		bookingService.sendEmail(id);
 		return b;
 	}
 	
@@ -91,7 +88,7 @@ public class BookingController
 	public Booking patchBooking(@PathVariable BigInteger bookingId,@RequestBody Booking booking)
 	{
 		bookingService.validatePatchBooking(booking);
-		return bookingService.modifyBooking(bookingId,booking);
+		return bookingService.patchBooking(bookingId,booking);
 	}
 }
 

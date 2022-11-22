@@ -166,7 +166,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		if (scheduledFlight.getAvailableSeats()!=0) {
 			s.setAvailableSeats(scheduledFlight.getAvailableSeats());
 		}
-		
+		validateScheduledFlight(s);
 		return scheduledFlightDao.save(s);
 
 	}

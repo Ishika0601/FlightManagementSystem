@@ -100,7 +100,10 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	
 	@Override
 	public void validateScheduledFlight(ScheduledFlight scft) {
-		
+		//available seats should be less than or equal to seat capacity and not less than 0
+		if (scft.getAvailableSeats() > scft.getFlight().getSeatCapacity() || scft.getAvailableSeats() < 0) {
+			throw new InvalidScheduledFlightException("Available seats should be less than or equal to flight seat capacity and greater than or equal to 0");
+		}
 		//arrival & departure date time > current date time 
 		if(scft.getSchedule().getArrivalTime().compareTo(LocalDateTime.now())<0 || 
 				scft.getSchedule().getDepartureTime().compareTo(LocalDateTime.now())<0 )
@@ -163,7 +166,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		if (scheduledFlight.getAvailableSeats()!=0) {
 			s.setAvailableSeats(scheduledFlight.getAvailableSeats());
 		}
-		
+		validateScheduledFlight(s);
 		return scheduledFlightDao.save(s);
 
 	}

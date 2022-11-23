@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class Schedule {
 	
 	@Id
-	@SequenceGenerator(name="sequence4", initialValue=100)			//Sequence generated from 100 auto increment by 1
+	@SequenceGenerator(name="sequence4", initialValue=114)			//Sequence generated from 100 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence4")
 	BigInteger sid;
 	

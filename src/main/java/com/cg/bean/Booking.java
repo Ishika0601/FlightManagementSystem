@@ -27,7 +27,7 @@ public class Booking
 {
 	
 	@Id
-	@SequenceGenerator(name="sequence1", initialValue=1000)			//Sequence generated from 1000 auto increment by 1
+	@SequenceGenerator(name="sequence1", initialValue=1013)			//Sequence generated from 1000 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence1")
 	BigInteger bookingId;
 	

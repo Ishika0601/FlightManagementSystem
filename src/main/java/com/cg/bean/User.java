@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 public class User {
 	
 	@Id
-	@SequenceGenerator(name="sequence6", initialValue=15)			//Sequence generated from 15 auto increment by 1
+	@SequenceGenerator(name="sequence6", initialValue=31)			//Sequence generated from 15 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence6")
 	private BigInteger id;
 	

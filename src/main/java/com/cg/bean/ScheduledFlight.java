@@ -14,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 public class ScheduledFlight {
 	
 	@Id
-	@SequenceGenerator(name="sequence5", initialValue=100)			//Sequence generated from 100 auto increment by 1
+	@SequenceGenerator(name="sequence5", initialValue=114)			//Sequence generated from 100 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence5")
 	BigInteger sfid;
 	

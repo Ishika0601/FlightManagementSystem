@@ -100,7 +100,7 @@ insert into passenger(pnr, luggage, age, name, uin, booking_id) values (2, 1, 19
 insert into passenger(pnr, luggage, age, name, uin, booking_id) values (3, 12, 34, 'Amit', 877623568178, 1002);
 insert into passenger(pnr, luggage, age, name, uin, booking_id) values (4, 8, 23, 'Mansi', 976961671976, 1003);
 insert into passenger(pnr, luggage, age, name, uin, booking_id) values (5, 3, 45, 'Sakshi', 907916765346, 1004);
-insert into passenger(pnr, luggage, age, name, uin, booking_id) values (6, 0, 23 'Akash', 876545677566, 1004);
+insert into passenger(pnr, luggage, age, name, uin, booking_id) values (6, 0, 23, 'Akash', 876545677566, 1004);
 insert into passenger(pnr, luggage, age, name, uin, booking_id) values (7, 2, 46, 'Yogesh', 765454568976, 1005);
 insert into passenger(pnr, luggage, age, name, uin, booking_id) values (8, 4, 24, 'Sarvesh', 879079166543, 1006);
 insert into passenger(pnr, luggage, age, name, uin, booking_id) values (9, 6, 36, 'Palak', 339076512456, 1006);

@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 public class Flight {
 
 	@Id
-	@SequenceGenerator(name="sequence3", initialValue=10004)		//Sequence generated from 10004 auto increment by 1
+	@SequenceGenerator(name="sequence3", initialValue=10013)		//Sequence generated from 10004 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence3")
 	@Column(name="fno")
 	BigInteger flightNumber;

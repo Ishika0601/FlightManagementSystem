@@ -19,7 +19,7 @@ public interface UserService {
     public User viewUser(BigInteger userId);
     
     //view all users
-    public List<User> viewUser();
+    public List<User> viewUser(String type);
     
     //validate user
     public void validateUser(User user);
@@ -28,4 +28,5 @@ public interface UserService {
 
     public  User viewByEmail(String Email);
     public User patchUser(BigInteger userId,User newAccount);
+    public String loginUser(String name, String password);
 }

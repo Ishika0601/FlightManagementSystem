@@ -51,19 +51,19 @@ insert into user(id, email, name, pwd, phno, type) values (29, 'parshant@gmail.c
 insert into user(id, email, name, pwd, phno, type) values (30, 'ashuSingh1305@gmail.com', 'Ashish', 'Ashu@1287', 9876512456, 'Customer');
 
 
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (101,'2022-12-25 17:50:00','2022-12-26 14:00:00',111,115);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (102,'2022-12-27 09:45:00','2022-12-27 07:00:00',112,101);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (103,'2022-12-26 19:00:00','2022-12-26 16:00:00',108,105);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (104,'2022-12-26 11:00:00','2022-12-26 09:00:00',109,101);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (105,'2022-12-25 20:00:00','2022-12-25 18:00:00',103,102);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (106,'2022-12-28 11:00:00','2022-12-28 09:00:00',110,109);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (107,'2022-12-27 18:50:00','2022-12-27 16:10:00',104,103);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (108,'2022-12-28 22:40:00','2022-12-28 19:00:00',110,114);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (109,'2022-12-26 11:40:00','2022-12-26 08:00:00',104,107);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (110,'2022-12-27 18:20:00','2022-12-27 16:20:00',101,105);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (111,'2022-12-28 19:50:00','2022-12-28 17:00:00',107,106);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (112,'2022-12-26 18:00:00','2022-12-26 15:00:00',102,101);
-insert into schedule(sid, atime, dtime, destination_code, source_code) values (113,'2022-12-25 13:50:00','2022-12-25 10:30:00',103,106);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (101,'2022-11-25 17:50:00','2022-11-26 14:00:00',111,115);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (102,'2022-11-27 09:45:00','2022-11-27 07:00:00',112,101);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (103,'2022-11-26 19:00:00','2022-11-26 16:00:00',108,105);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (104,'2022-11-26 11:00:00','2022-11-26 09:00:00',109,101);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (105,'2022-11-25 20:00:00','2022-11-25 18:00:00',103,102);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (106,'2022-11-28 11:00:00','2022-11-28 09:00:00',110,109);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (107,'2022-11-27 18:50:00','2022-11-27 16:10:00',104,103);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (108,'2022-11-28 22:40:00','2022-11-28 19:00:00',110,114);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (109,'2022-11-26 11:40:00','2022-11-26 08:00:00',104,107);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (110,'2022-11-27 18:20:00','2022-11-27 16:20:00',101,105);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (111,'2022-11-28 19:50:00','2022-11-28 17:00:00',107,106);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (112,'2022-11-26 18:00:00','2022-11-26 15:00:00',102,101);
+insert into schedule(sid, atime, dtime, destination_code, source_code) values (113,'2022-11-25 13:50:00','2022-11-25 10:30:00',103,106);
 
 
 insert into scheduled_flight(sfid, avalseat, flight_fno, schedule_sid) values (101, 96, 10001, 110);

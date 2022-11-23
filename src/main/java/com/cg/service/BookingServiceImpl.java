@@ -27,6 +27,7 @@ import com.cg.exception.ScheduledFlightNotFoundException;
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService
 {
+	
 	@Autowired
 	BookingDao bookingDao;
 	
@@ -248,4 +249,6 @@ public class BookingServiceImpl implements BookingService
 			throw new InvalidBookingException("Number of passengers are invalid");
 		}
 	}
+	
+	
 }

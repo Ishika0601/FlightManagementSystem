@@ -36,4 +36,6 @@ public interface BookingService
 	
 	//validate patch booking
 	public void validatePatchBooking(Booking booking);
+	
+	
 }

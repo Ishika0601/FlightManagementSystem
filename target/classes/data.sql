@@ -83,14 +83,14 @@ insert into scheduled_flight(sfid, avalseat, flight_fno, schedule_sid) values (1
 
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1001, '2022-12-25 12:00:00', 2, 12000, 101, 11);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1002, '2022-12-24 12:00:00', 1, 6000, 113, 13);
-insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1003, '2022-12-25 11:00:00', 1, 18000, 103, 15);
+insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1003, '2022-12-25 11:00:00', 1, 6000, 103, 15);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1004, '2022-12-25 12:00:00', 2, 12000, 105, 12);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1005, '2022-12-24 22:00:00', 1, 6000, 113, 12);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1006, '2022-12-25 10:00:00', 2, 12000, 101, 15);
-insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1007, '2022-12-25 13:00:00', 1, 18000, 104, 11);
+insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1007, '2022-12-25 13:00:00', 1, 6000, 104, 11);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1008, '2022-12-24 12:00:00', 2, 12000, 106, 14);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1009, '2022-12-24 12:00:00', 1, 6000, 108, 17);
-insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1010, '2022-12-25 12:00:00', 1, 18000, 110, 13);
+insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1010, '2022-12-25 12:00:00', 1, 6000, 110, 13);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1011, '2022-12-25 10:00:00', 1, 6000, 110, 14);
 insert into booking(booking_id, date, nop, cost, sfid, user_id) values (1012, '2022-12-24 12:00:00', 2, 12000, 108, 11);
 

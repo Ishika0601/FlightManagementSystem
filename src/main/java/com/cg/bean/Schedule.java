@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -21,10 +22,12 @@ public class Schedule {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence4")
 	BigInteger sid;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "source_code", nullable = false)
 	Airport sourceAirport;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "destination_code", nullable = false)
 	Airport destinationAirport;
 	
 	//specify how to format datetime acc to SimpleDateTime format

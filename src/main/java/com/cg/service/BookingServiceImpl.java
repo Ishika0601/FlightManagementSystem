@@ -21,11 +21,13 @@ import com.cg.dao.ScheduledFlightDao;
 import com.cg.dao.UserDao;
 import com.cg.exception.BookingNotFoundException;
 import com.cg.exception.InvalidBookingException;
+import com.cg.exception.ScheduledFlightNotFoundException;
 
 
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService
 {
+	
 	@Autowired
 	BookingDao bookingDao;
 	
@@ -222,7 +224,18 @@ public class BookingServiceImpl implements BookingService
 	@Override
 	public List<Booking> viewBookingBySfid(BigInteger sfid)
 	{
+		Optional<ScheduledFlight> opbook = scheduledFlightDao.findById(sfid);
+		if(opbook.isEmpty())
+		{
+			//throw exception if no booking found
+			throw new ScheduledFlightNotFoundException("No scheduled flight found for schedule flight id : "+sfid);
+		}
 		List<Booking> b = bookingDao.findByFlightSfid(sfid);
+		
+		if(b.isEmpty())
+		{
+			throw new BookingNotFoundException("No booking found for scheduled flight id "+sfid);
+		}
 		return b;
 	}
 	
@@ -236,4 +249,6 @@ public class BookingServiceImpl implements BookingService
 			throw new InvalidBookingException("Number of passengers are invalid");
 		}
 	}
+	
+	
 }

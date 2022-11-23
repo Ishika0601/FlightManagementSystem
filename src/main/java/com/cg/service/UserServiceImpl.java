@@ -75,8 +75,13 @@ public class UserServiceImpl implements  UserService{
     
     
     @Override
-    public List<User> viewUser() {
-        return userDao.findAll();
+    public List<User> viewUser(String type) {
+    	if (type.equals("Admin")) {
+    		return userDao.findByUserType(type);
+    	}
+    	else {
+    		return userDao.findByUserType(type);
+    	}
 
     }
 
@@ -135,10 +140,6 @@ public class UserServiceImpl implements  UserService{
             throw new UserNotFoundException("No user found with code "+code);
         }
         User ap = a.get();
-
-        if (!user.getUserType().equals("empty")) {
-            ap.setUserType(user.getUserType());
-        }
         if (!user.getUserName().equals("empty")) {
             ap.setUserName(user.getUserName());
         }
@@ -153,6 +154,22 @@ public class UserServiceImpl implements  UserService{
         }
         validateUser(ap);
         return userDao.save(ap);
+    }
+    
+    @Override
+    public String loginUser(String name, String password) {
+    	List<User> userlist = userDao.findAll();
+    	if(userlist.stream().noneMatch(u -> u.getUserName().equals(name))) {
+    		throw new InvalidUserException("Invalid Username");
+    	}
+    	User u = userDao.findByUserName(name);
+    	if(!u.getUserPassword().equals(password)) {
+    		throw new InvalidUserException("Incorrect Password");
+    	}
+    	if(u.getUserType().equals("Admin")) {
+    		return "Welcome Admin !!!";
+    	}
+    	return "Welcome Customer !!!";
     }
 
 }

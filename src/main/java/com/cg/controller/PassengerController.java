@@ -28,7 +28,7 @@ public class PassengerController {
 		List<Passenger> plist = passengerService.viewPassenger();
 		return plist;
 	}
-	//git try commit
+	//git try commit void 
 	@GetMapping("/showByPnrNumber/{pnr}")
 	public Passenger showById(@PathVariable BigInteger pnr) {
 		return passengerService.viewPassenger(pnr);

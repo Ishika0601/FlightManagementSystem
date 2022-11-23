@@ -8,8 +8,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.cg.bean.Airport;
@@ -29,9 +27,6 @@ import com.cg.exception.ScheduledFlightNotFoundException;
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService
 {
-	@Autowired
-	JavaMailSender javaMailSender;
-	@Value("${spring.mail.username}") private String sender;
 	
 	@Autowired
 	BookingDao bookingDao;
@@ -255,8 +250,5 @@ public class BookingServiceImpl implements BookingService
 		}
 	}
 	
-	public void sendEmail()
-	{
-		
-	}
+	
 }

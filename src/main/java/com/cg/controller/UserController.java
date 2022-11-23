@@ -19,8 +19,8 @@ public class UserController {
      METHOD : GET
      */
     @GetMapping("/showAllUsers")
-    public List<User> showAllUser(){
-        List<User> list =userService.viewUser();
+    public List<User> showAllUser(@RequestParam String userType){
+        List<User> list =userService.viewUser(userType);
         return  list;
     }
 //    @GetMapping("/showByuserName/{userName}")
@@ -103,5 +103,8 @@ public class UserController {
 
     }
     
- 		
+    @GetMapping("/loginUser")
+    public String loginUser(@RequestParam String userName, @RequestParam String userPassword){
+        return userService.loginUser(userName, userPassword);
+    }	
 }

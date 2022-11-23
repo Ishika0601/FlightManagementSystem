@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 public class Airport {
 	
 	@Id
-	@SequenceGenerator(name="sequence7", initialValue=107)			//Sequence generated from 100 auto increment by 1
+	@SequenceGenerator(name="sequence7", initialValue=116)			//Sequence generated from 100 auto increment by 1
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence7")
 	@Column(name="code")
 	BigInteger airportCode;

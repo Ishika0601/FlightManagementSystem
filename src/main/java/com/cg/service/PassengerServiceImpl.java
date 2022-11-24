@@ -69,6 +69,17 @@ public class PassengerServiceImpl implements PassengerService {
 		return p;
 	}
 	
+	@Override
+	public List<Passenger> viewPassengerByBookingId(BigInteger bookingId) {
+		Optional<Booking> book = bookingDao.findById(bookingId);
+		if (book.isEmpty()) {
+			throw new BookingNotFoundException("No booking exists for id "+bookingId);
+		}
+		Booking b = book.get();
+		List<Passenger> plist = passengerDao.findByBooking(b);
+		return plist;
+	}
+	
 	@Transactional
 	@Override
 	public Passenger addPassenger(BigInteger bookingId, Passenger passenger) {

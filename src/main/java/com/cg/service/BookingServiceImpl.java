@@ -3,6 +3,7 @@ package com.cg.service;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -222,7 +223,7 @@ public class BookingServiceImpl implements BookingService
 	}
 	
 	@Override
-	public List<Booking> viewBookingBySfid(BigInteger sfid)
+	public List<Passenger> viewBookingBySfid(BigInteger sfid)
 	{
 		Optional<ScheduledFlight> opbook = scheduledFlightDao.findById(sfid);
 		if(opbook.isEmpty())
@@ -236,7 +237,13 @@ public class BookingServiceImpl implements BookingService
 		{
 			throw new BookingNotFoundException("No booking found for scheduled flight id "+sfid);
 		}
-		return b;
+		List<Passenger> p = new ArrayList<>();
+		for(Booking book: b) {
+			for (Passenger pass: book.getPassengerList()) {
+				p.add(pass);
+			}
+		}
+		return p;
 	}
 	
 	@Override

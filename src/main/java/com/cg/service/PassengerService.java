@@ -18,6 +18,9 @@ public interface PassengerService {
 		
 	//view passenger by passenger uin
 	public List<Passenger> viewPassengerByUIN(BigInteger uin);
+	
+	//view passenger by booking
+	public List<Passenger> viewPassengerByBookingId(BigInteger bookingId);
 		
 	//add passenger
 	public Passenger addPassenger(BigInteger bookingId, Passenger passenger);

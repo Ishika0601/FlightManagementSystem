@@ -3,6 +3,7 @@ package com.cg.controller;
 import java.math.BigInteger;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.bean.Booking;
+import com.cg.bean.Passenger;
 import com.cg.service.BookingService;
 
 @RestController
 @RequestMapping("/booking")
+@CrossOrigin(origins = "*")
 public class BookingController 
 {
 
@@ -79,7 +82,7 @@ public class BookingController
 	}
 	
 	@GetMapping("/showBySfid/{sfid}")
-	public List<Booking> showBySfid(@PathVariable BigInteger sfid)
+	public List<Passenger> showBySfid(@PathVariable BigInteger sfid)
 	{
 		return bookingService.viewBookingBySfid(sfid);
 	}

@@ -32,7 +32,7 @@ public interface BookingService
 	public Booking patchBooking(BigInteger id,Booking booking); 
 	
 	//view Booking by scheduledFlight id
-	public List<Booking> viewBookingBySfid(BigInteger sfid);
+	public List<Passenger> viewBookingBySfid(BigInteger sfid);
 	
 	//validate patch booking
 	public void validatePatchBooking(Booking booking);

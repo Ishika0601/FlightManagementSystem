@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,6 +20,7 @@ import com.cg.service.PassengerService;
 
 @RestController
 @RequestMapping("/passenger")
+@CrossOrigin(origins = "*")
 public class PassengerController {
 	@Autowired
 	PassengerService passengerService;
@@ -42,6 +44,11 @@ public class PassengerController {
 	@GetMapping("/showByPassengerUIN/{uin}")
 	public List<Passenger> showByPassengeUIN(@PathVariable BigInteger uin) {
 		return passengerService.viewPassengerByUIN(uin);
+	}
+	
+	@GetMapping("/showByBookingId/{id}")
+	public List<Passenger> showByBookingId(@PathVariable BigInteger id) {
+		return passengerService.viewPassengerByBookingId(id);
 	}
 	
 	@PostMapping("/addPassenger/{bookingId}")

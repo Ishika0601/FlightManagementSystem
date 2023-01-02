@@ -99,6 +99,7 @@ public class PassengerServiceImpl implements PassengerService {
 		b.setNoOfPassengers(b.getPassengerList().size());
 		b.setTicketCost(b.getNoOfPassengers());
 		return passenger;
+		
 	}
 	
 	@Transactional
@@ -126,7 +127,7 @@ public class PassengerServiceImpl implements PassengerService {
 			throw new PassengerNotFoundException("No passenger found with number "+pnrNumber);
 		}
 		Booking b = p.get().getBooking();
-		b.getPassengerList().remove(p);
+		b.getPassengerList().remove(p.get());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 		String formatDateTime = LocalDateTime.now().format(formatter); 
 		LocalDateTime bookingDate = LocalDateTime.parse(formatDateTime, formatter);
